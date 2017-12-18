@@ -6,7 +6,7 @@ public class testing : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		print(SystemInfo.batteryLevel)s;
+		print(SystemInfo.batteryLevel);
 	}
 	
 	// Update is called once per frame
