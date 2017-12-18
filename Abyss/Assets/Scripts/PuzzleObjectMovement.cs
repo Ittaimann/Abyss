@@ -71,7 +71,7 @@ public class PuzzleObjectMovement : MonoBehaviour {
 		switch(touch.phase) {
 			case TouchPhase.Moved:
 				Vector2 endTouchPos = cam.ScreenToWorldPoint(touch.position);
-				rb.MovePosition(endTouchPos);
+				transform.position = endTouchPos;
 				break;
 		}
 	}
