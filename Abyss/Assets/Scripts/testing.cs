@@ -6,11 +6,6 @@ public class testing : MonoBehaviour {
 	private Rigidbody2D rb2D;
 	public float offset;
 
-	// Use this for initialization
-	void Start () {
-		print(SystemInfo.batteryLevel);
-	}
-
     // Use this for initialization
     void Start () {
         rb2D = GetComponent<Rigidbody2D>();
