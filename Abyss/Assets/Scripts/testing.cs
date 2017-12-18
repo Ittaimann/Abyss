@@ -5,7 +5,6 @@ using UnityEngine;
 public class testing : MonoBehaviour {
 	private Rigidbody2D rb2D;
 	public float offset;
-    public float speed;
 
 
     // Use this for initialization
