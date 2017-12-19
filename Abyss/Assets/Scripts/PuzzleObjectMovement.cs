@@ -24,21 +24,25 @@ public class PuzzleObjectMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		switch(Input.touchCount) {
-			case 1:
-				RotateWithTouch();
-				break;
-			case 2:
-				MoveWithTouch();
-				break;
+		if(Input.touchCount > 0) {
+			Touch touch = Input.GetTouch(0);
+			RaycastHit2D hit = Physics2D.Raycast(cam.ScreenToWorldPoint(touch.position), Vector2.zero);
+			if(hit && hit.transform.gameObject == gameObject)
+				switch(Input.touchCount) {
+					case 1:
+						RotateWithTouch(touch);
+						break;
+					case 2:
+						MoveWithTouch(touch);
+						break;
+				}
 		}
 	}
 
 	Vector2 startTouchPos = Vector2.zero;
 	Vector2 radius_start = Vector2.zero;
-	void RotateWithTouch() {
+	void RotateWithTouch(Touch touch) {
 		Vector2 center = coll.bounds.center;
-		Touch touch = Input.GetTouch(0);
 
 		switch(touch.phase) {
 			case TouchPhase.Began:
@@ -65,14 +69,10 @@ public class PuzzleObjectMovement : MonoBehaviour {
 		return f * (180 / Mathf.PI);
 	}
 
-	void MoveWithTouch() {
-		Touch touch = Input.GetTouch(0);
-
-		switch(touch.phase) {
-			case TouchPhase.Moved:
-				Vector2 endTouchPos = cam.ScreenToWorldPoint(touch.position);
-				transform.position = endTouchPos;
-				break;
+	void MoveWithTouch(Touch touch) {
+		if(touch.phase == TouchPhase.Moved) {
+			Vector2 endTouchPos = cam.ScreenToWorldPoint(touch.position);
+			transform.position = endTouchPos;
 		}
 	}
 
