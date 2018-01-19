@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 10b1a9f4baacd134b957e6dc0a29fd2d
-timeCreated: 1516322850
+guid: a56817496a181dc48ba9433021311bc5
+timeCreated: 1516321772
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -31,8 +31,8 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
-    aniso: 1
+    filterMode: -1
+    aniso: -1
     mipBias: -1
     wrapU: 1
     wrapV: 1
@@ -49,7 +49,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   maxTextureSizeSet: 0
@@ -66,28 +66,10 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline:
-    - - {x: -204, y: 181}
-      - {x: -204, y: -181}
-      - {x: 204, y: -181}
-      - {x: 204, y: 181}
-    - - {x: -191, y: 168}
-      - {x: 191, y: 168}
-      - {x: 191, y: -168}
-      - {x: -191, y: -168}
+    outline: []
     physicsShape: []
   spritePackingTag: 
   userData: 
