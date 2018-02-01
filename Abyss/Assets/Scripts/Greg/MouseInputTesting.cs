@@ -11,6 +11,9 @@ public class MouseInputTesting : MonoBehaviour {
     float movementLerpStep;
     Vector3 previousMousePos;
 
+    // TODO change this later, of course
+    PrototypeRotatorSystem rotatorSystem;
+
     void Start () {
         desiredVelocity = Vector2.zero;
         startingVelocity = Vector2.zero;
@@ -18,27 +21,21 @@ public class MouseInputTesting : MonoBehaviour {
     
     void Update () {
 
-        // Testing the "each half of the screen moves the character" thing //
-
-        // (in my opinion it should be each half of the player, the screen dictating the
-        // left/right split feels less intuitive... unless perhaps we visually mark the split)
-
         if (Input.GetMouseButton(0)) {
             Vector3 currentMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (Mathf.Sign(currentMousePos.x) != Mathf.Sign(previousMousePos.x)) {
                 movementLerpStep = 1 - (Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) / playerSpeed);
                 startingVelocity = desiredVelocity;
-                desiredVelocity = new Vector2(playerSpeed * Mathf.Sign(Camera.main.ScreenToWorldPoint(Input.mousePosition).x), desiredVelocity.y);
+                desiredVelocity = new Vector2(playerSpeed * Mathf.Sign(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x), desiredVelocity.y);
             }
-
             previousMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
         if (Input.GetMouseButtonDown(0)) {
             movementLerpStep = Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x) / playerSpeed;
             startingVelocity = Vector2.zero;
-            desiredVelocity = new Vector2(playerSpeed * Mathf.Sign(Camera.main.ScreenToWorldPoint(Input.mousePosition).x), desiredVelocity.y);
+            desiredVelocity = new Vector2(playerSpeed * Mathf.Sign(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - transform.position.x), desiredVelocity.y);
         }
 
         if (Input.GetMouseButtonUp(0)) {
@@ -56,5 +53,6 @@ public class MouseInputTesting : MonoBehaviour {
         } else {
             movementLerpStep = 1f;
         }
+
     }
 }
