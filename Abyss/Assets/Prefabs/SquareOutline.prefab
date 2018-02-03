@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccd6f0bb1cd9d724f9a184dcc2150223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   RotationalLeniency: 0
 --- !u!212 &212896042159181196
 SpriteRenderer:
