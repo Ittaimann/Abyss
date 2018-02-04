@@ -9,6 +9,13 @@ public class MouseInputTesting : MonoBehaviour {
     public float doubleTapTime;
     public float movementIgnoreRadius;
 
+
+    /// raycast stuff for bounce
+    //RaycastHit hit;
+    //Ray ray; 
+    bool grounded;
+    /// </summary>
+
     bool isDoubleTap;
     Coroutine doubleTapCoroutine;
     Vector2 desiredVelocity, previousDesiredVelocity, startingVelocity;
@@ -22,16 +29,52 @@ public class MouseInputTesting : MonoBehaviour {
         desiredVelocity = Vector2.zero;
         startingVelocity = Vector2.zero;
     }
-    
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+       // Debug.Log("collides");
+        grounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+   
+    {
+
+        if (grounded)
+        {
+            grounded = false;
+        }
+    }
+
     void Update () {
         if (Input.GetMouseButtonDown(0)) {
-            if (isDoubleTap) {
+            if (isDoubleTap)
+            {
                 // If the double-tap coroutine is still running, stop it -- it can cause an issue at a specific edge case
                 StopCoroutine(doubleTapCoroutine);
                 isDoubleTap = false;
 
-                // Jump Logic -- put it here as an AddForce, do some interpolation in Input.GetMouseButton(0), start a coroutine -- anything works
-                Debug.Log("JUMP");
+                //
+                // ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if (hit.collider != null)
+                {
+                    Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
+                }
+                else
+                {
+                    // Jump Logic -- put it here as an AddForce, do some interpolation in Input.GetMouseButton(0), start a coroutine -- anything works
+
+
+
+                    Debug.Log("jump");
+
+                    if (grounded)
+                    {
+                        GetComponent<Rigidbody2D>().AddForce(new Vector2(playerSpeed * Mathf.Sign(Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 800));
+                    }
+                }            
+                
             } else {
                 doubleTapCoroutine = StartCoroutine(DoubleTapCheck());
                 isDoubleTap = true;
