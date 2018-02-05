@@ -366,7 +366,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 9
-  acceleration: 5
+  acceleration: 4
+  doubleTapTime: 0.25
+  movementIgnoreRadius: 1
+  rotatorSystem: {fileID: 2099855732}
 --- !u!1 &1295935896
 GameObject:
   m_ObjectHideFlags: 0
