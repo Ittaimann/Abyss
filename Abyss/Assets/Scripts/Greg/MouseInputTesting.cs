@@ -8,6 +8,8 @@ public class MouseInputTesting : MonoBehaviour {
     public float acceleration;
     public float doubleTapTime;
     public float movementIgnoreRadius;
+    public float bounceForce;
+    public GameManager gm;
 
 
     /// raycast stuff for bounce
@@ -60,6 +62,8 @@ public class MouseInputTesting : MonoBehaviour {
                 if (hit.collider != null)
                 {
                     Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
+                    this.GetComponent<Rigidbody2D>().AddForce(bounceForce * Vector2.up, ForceMode2D.Impulse);
+                    gm.bounceAllGroundedShapes(bounceForce);
                 }
                 else
                 {

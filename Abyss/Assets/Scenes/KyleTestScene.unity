@@ -234,6 +234,11 @@ Prefab:
       propertyPath: triangleOutlineParent
       value: 
       objectReference: {fileID: 1601202762}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: bounceStrength
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
   m_IsPrefabParent: 0
@@ -355,8 +360,8 @@ GameObject:
   - component: {fileID: 1295935900}
   - component: {fileID: 1295935899}
   m_Layer: 0
-  m_Name: BackgroundOutline
-  m_TagString: Untagged
+  m_Name: Room
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -502,6 +507,16 @@ Prefab:
       propertyPath: rotatorSystem
       value: 
       objectReference: {fileID: 2099855732}
+    - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 683252035}
+    - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: bounceForce
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
   m_IsPrefabParent: 0

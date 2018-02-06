@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
     //these are temp and used to have a full local list of objects in the scene
     public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent;
     private List<Transform> squares, squareOutlines, triangles, triangleOutlines;
+    
 	// Use this for initialization
 	void Start () {
         squares = new List<Transform>();
@@ -30,7 +31,42 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         manageShapes();
 	}
-
+    public void bounceAllGroundedShapes(float bounceStrength)
+    {
+        ContactPoint2D[] contPoints = new ContactPoint2D[16];
+        Collider2D[] collisions = new Collider2D[16];
+        foreach (Transform square in squares)
+        {
+            square.GetComponent<Rigidbody2D>().GetContacts(collisions);
+            foreach (Collider2D coll in collisions)
+                if (coll && coll.tag == "Room")
+                {
+                    coll.GetContacts(contPoints);
+                    foreach (ContactPoint2D cp in contPoints)
+                        if (cp.normal.normalized == Physics2D.gravity.normalized)
+                        {
+                            square.GetComponent<Rigidbody2D>().velocity = new Vector2();
+                            square.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        }
+                }
+        }
+        foreach (Transform triangle in triangles)
+        {
+            triangle.GetComponent<Rigidbody2D>().GetContacts(collisions);
+            foreach (Collider2D coll in collisions)
+                if (coll && coll.tag == "Room")
+                {
+                    coll.GetContacts(contPoints);
+                    foreach (ContactPoint2D cp in contPoints)
+                        if (cp.normal.normalized == Physics2D.gravity.normalized)
+                        {
+                            triangle.GetComponent<Rigidbody2D>().velocity = new Vector2();
+                            triangle.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        }
+                            
+                }
+        }
+    }
     public void manageShapes()
     {
         //Debug.Log(squareOutlines.Count);
