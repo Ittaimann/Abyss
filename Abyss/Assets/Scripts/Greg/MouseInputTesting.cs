@@ -14,7 +14,6 @@ public class MouseInputTesting : MonoBehaviour {
 
     private Quaternion offset;
 
-
     /// raycast stuff for bounce
     //RaycastHit hit;
     //Ray ray; 
@@ -30,10 +29,15 @@ public class MouseInputTesting : MonoBehaviour {
     // TODO change this later, of course
     public PrototypeRotatorSystem rotatorSystem;
 
+    TestPlayerAnimator animator;
+
+    bool checkMovementIgnoreLast;
+
     void Start () {
         desiredVelocity = Vector2.zero;
         startingVelocity = Vector2.zero;
         offset = transform.rotation;
+        animator = GetComponent<TestPlayerAnimator>();
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -83,6 +87,8 @@ public class MouseInputTesting : MonoBehaviour {
                     if (grounded)
                     {
                         GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        if (animator != null)
+                            animator.SetState(PlayerState.JUMP, 16);
                     }
                 }            
                 
@@ -92,11 +98,12 @@ public class MouseInputTesting : MonoBehaviour {
             }
         }
 
+        bool checkMovementIgnore = CheckMovementIgnore();
         // There's a guard applied to ignore movement when the input is really close to the player's current position (prevents constantly moving)
-        if (!CheckMovementIgnore()) {
+        if (!checkMovementIgnore) {
             // Update direction values based on things like rotation direction, input position, and updating based on GetMouseButtonDown vs GetMouseButton
             RunDirectionHandler();
-
+            
             // Apply velocity based on movement direction
             if (rotatorSystem.orientation == 0 || rotatorSystem.orientation == 2) {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
@@ -114,7 +121,20 @@ public class MouseInputTesting : MonoBehaviour {
                 movementLerpStep = 1f;
             }
         }
-        
+        if (checkMovementIgnore == false && checkMovementIgnoreLast == true) {
+            if (Input.GetMouseButton(0)) {
+                if (animator != null && animator.state != PlayerState.JUMP)
+                    animator.SetState(PlayerState.WALK, 0);
+            } else {
+                if (animator != null && animator.state != PlayerState.JUMP)
+                    animator.SetState(PlayerState.IDLE, 0);
+            }
+        } else if (checkMovementIgnore == true && checkMovementIgnoreLast == false) {
+            if (animator != null && animator.state != PlayerState.JUMP)
+                animator.SetState(PlayerState.IDLE, 0);
+        }
+
+        checkMovementIgnoreLast = checkMovementIgnore;
     }
 
     private void RunDirectionHandler() {
@@ -132,6 +152,8 @@ public class MouseInputTesting : MonoBehaviour {
 
             prevDirection = Vector2.zero;
             updateStep = true;
+            if (animator != null && animator.state != PlayerState.JUMP)
+                animator.SetState(PlayerState.WALK, 0);
         }
 
         // GetMouseButton is different since we're switching direction, instead of starting to move without a prior direction to remember
@@ -143,9 +165,9 @@ public class MouseInputTesting : MonoBehaviour {
             // We could be getting GetMouseButton without having done GetMouseButtonDown first -- it's copy/paste but it's minor
             if (direction.x == 0 || direction.y == 0) {
                 direction = new Vector2(
-                    inputPos.x > transform.position.x ?  1 :
+                    inputPos.x > transform.position.x ? 1 :
                     inputPos.x < transform.position.x ? -1 : 0,
-                    inputPos.y > transform.position.y ?  1 :
+                    inputPos.y > transform.position.y ? 1 :
                     inputPos.y < transform.position.y ? -1 : 0);
                 prevDirection = Vector2.zero;
                 updateStep = true;
@@ -162,11 +184,25 @@ public class MouseInputTesting : MonoBehaviour {
                     (rotatorSystem.orientation == 1 || rotatorSystem.orientation == 3) && lastDirection.y != direction.y)
                     updateStep = true;
             }
+
+            // Set sprite based on mouse input
+            if (rotatorSystem.orientation == 0) {
+                animator.facingRight = inputPos.x > transform.position.x;
+            } else if (rotatorSystem.orientation == 2) {
+                animator.facingRight = inputPos.x < transform.position.x;
+            } else if (rotatorSystem.orientation == 1) {
+                animator.facingRight = inputPos.y < transform.position.y;
+            } else if (rotatorSystem.orientation == 3) {
+                animator.facingRight = inputPos.y > transform.position.y;
+            }
         }
         if (Input.GetMouseButtonUp(0)) {
             prevDirection = direction;
             direction = Vector2.zero;
             updateStep = true;
+
+            if (animator != null && animator.state != PlayerState.JUMP)
+                animator.SetState(PlayerState.IDLE, 0);
         }
 
         // Updates the Lerp interval when a change in direction has been initiated.
