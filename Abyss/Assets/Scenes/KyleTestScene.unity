@@ -637,6 +637,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1 &1385210031 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1043017651259422, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1513405155}
+--- !u!114 &1385210032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1385210031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8bf98ef18b26d49a8d586e5f05d17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkFolder: Player/Walk
+  jumpFolder: Player/Jump
+  fps: 60
+  state: 0
+  facingRight: 1
 --- !u!1001 &1513405155
 Prefab:
   m_ObjectHideFlags: 0

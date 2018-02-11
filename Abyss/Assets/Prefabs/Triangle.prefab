@@ -117,8 +117,10 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 1.28, y: -1.28}
-      - {x: 1.28, y: 1.28}
-      - {x: -1.28, y: -1.28}
+      - {x: 1.28, y: 1.12}
+      - {x: 1.2, y: 1.2}
+      - {x: -1.2, y: -1.2}
+      - {x: -1.12, y: -1.28}
 --- !u!61 &61086883955666580
 BoxCollider2D:
   m_ObjectHideFlags: 1
