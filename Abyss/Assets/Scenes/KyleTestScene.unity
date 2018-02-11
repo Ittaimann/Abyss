@@ -131,7 +131,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4810515078128144, guid: f231603324ba2cd478ed80d584cd134a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.06
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4810515078128144, guid: f231603324ba2cd478ed80d584cd134a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -509,9 +509,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
         type: 2}
-      propertyPath: rotatorSystem
+      propertyPath: cam
       value: 
-      objectReference: {fileID: 2099855732}
+      objectReference: {fileID: 2099855730}
     - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
         type: 2}
       propertyPath: gm
@@ -519,14 +519,14 @@ Prefab:
       objectReference: {fileID: 683252035}
     - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
         type: 2}
-      propertyPath: bounceForce
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
-        type: 2}
-      propertyPath: cam
+      propertyPath: rotatorSystem
       value: 
-      objectReference: {fileID: 2099855730}
+      objectReference: {fileID: 2099855732}
+    - target: {fileID: 50838226918196002, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
   m_IsPrefabParent: 0

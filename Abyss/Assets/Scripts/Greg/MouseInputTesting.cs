@@ -67,7 +67,7 @@ public class MouseInputTesting : MonoBehaviour {
                 if (hit.collider != null)
                 {
                     Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
-                    this.GetComponent<Rigidbody2D>().AddForce(bounceForce * Vector2.up, ForceMode2D.Impulse);
+                    this.GetComponent<Rigidbody2D>().AddForce(1.0f/10 * bounceForce * Vector2.up, ForceMode2D.Impulse);
                     gm.bounceAllGroundedShapes(bounceForce);
                 }
                 else
