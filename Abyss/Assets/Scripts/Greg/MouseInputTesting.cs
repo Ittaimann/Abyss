@@ -38,7 +38,7 @@ public class MouseInputTesting : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-       // Debug.Log("collides");
+        //Debug.Log("collides");
         grounded = true;
     }
 
@@ -53,6 +53,7 @@ public class MouseInputTesting : MonoBehaviour {
     }
 
     void Update () {
+        //Debug.Log(grounded);
         transform.rotation = offset * cam.transform.rotation;// this line is unrelated to the rest of the script, I just didnt want to make another script for two lines.
         if (Input.GetMouseButtonDown(0)) {
             if (isDoubleTap)
@@ -67,20 +68,21 @@ public class MouseInputTesting : MonoBehaviour {
                 if (hit.collider != null)
                 {
                     Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
-                    this.GetComponent<Rigidbody2D>().AddForce(1.0f/10 * bounceForce * Vector2.up, ForceMode2D.Impulse);
+                    this.GetComponent<Rigidbody2D>().AddForce(1.0f/10 * bounceForce * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
                     gm.bounceAllGroundedShapes(bounceForce);
                 }
                 else
                 {
                     // Jump Logic -- put it here as an AddForce, do some interpolation in Input.GetMouseButton(0), start a coroutine -- anything works
+                    Debug.Log(grounded);
 
 
 
-                    Debug.Log("jump");
+                  //  Debug.Log("jump");
 
                     if (grounded)
                     {
-                        GetComponent<Rigidbody2D>().AddForce(new Vector2(playerSpeed * Mathf.Sign(Camera.main.ScreenToWorldPoint(Input.mousePosition).x), 800));
+                        GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
                     }
                 }            
                 
