@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     //these are temp and used to have a full local list of objects in the scene
-    public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent;
-    private List<Transform> squares, squareOutlines, triangles, triangleOutlines;
+    public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent, circleParent, circleOutlineParent;
+    private List<Transform> squares, squareOutlines, triangles, triangleOutlines, circles, circleOutlines;
     
 	// Use this for initialization
 	void Start () {
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
         foreach (Transform t in squareOutlineParent.transform)
             squareOutlines.Add(t);
 
-        
+
         triangles = new List<Transform>();
         foreach (Transform t in triangleParent.transform)
             triangles.Add(t);
@@ -25,6 +25,14 @@ public class GameManager : MonoBehaviour {
         triangleOutlines = new List<Transform>();
         foreach (Transform t in triangleOutlineParent.transform)
             triangleOutlines.Add(t);
+
+        circles = new List<Transform>();
+        foreach (Transform t in circleParent.transform)
+            circles.Add(t);
+
+        circleOutlines = new List<Transform>();
+        foreach (Transform t in circleOutlineParent.transform)
+            circleOutlines.Add(t);
     }
 	
 	// Update is called once per frame
@@ -66,6 +74,21 @@ public class GameManager : MonoBehaviour {
                             
                 }
         }
+        foreach (Transform circle in circles)
+        {
+            circle.GetComponent<Rigidbody2D>().GetContacts(collisions);
+            foreach (Collider2D coll in collisions)
+                if (coll && coll.tag == "Room")
+                {
+                    coll.GetContacts(contPoints);
+                    foreach (ContactPoint2D cp in contPoints)
+                        if (cp.normal.normalized == Physics2D.gravity.normalized)
+                        {
+                            circle.GetComponent<Rigidbody2D>().velocity = new Vector2();
+                            circle.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        }
+                }
+        }
     }
     public void manageShapes()
     {
@@ -78,8 +101,9 @@ public class GameManager : MonoBehaviour {
             }
             triangles = new List<Transform>();
         }
-            
-        if (squareOutlines.Count == 0 && squares.Count != 0) {
+
+        if (squareOutlines.Count == 0 && squares.Count != 0)
+        {
             Debug.Log("All square outlines eliminated, deleting squares.");
             foreach (Transform t in squares)
             {
@@ -87,7 +111,17 @@ public class GameManager : MonoBehaviour {
                 squares = new List<Transform>();
             }
         }
-            
+
+        if (circleOutlines.Count == 0 && circles.Count != 0)
+        {
+            Debug.Log("All circle outlines eliminated, deleting circles.");
+            foreach (Transform t in circles)
+            {
+                Destroy(t.gameObject);
+                circles = new List<Transform>();
+            }
+        }
+
     }
 
     public void removeSquareOutline(Transform toRemove)
@@ -99,6 +133,12 @@ public class GameManager : MonoBehaviour {
     public void removeTriangleOutline(Transform toRemove)
     {
         triangleOutlines.Remove(toRemove);
+        Destroy(toRemove.gameObject);
+    }
+
+    public void removeCircleOutline(Transform toRemove)
+    {
+       circleOutlines.Remove(toRemove);
         Destroy(toRemove.gameObject);
     }
 }

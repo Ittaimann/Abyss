@@ -44,5 +44,10 @@ public class OutlineCancelChecking : MonoBehaviour {
                 gameManager.removeTriangleOutline(transform);
             }
         }
+        else if (this.gameObject.layer == 22/*CircleTrigger*/ && other.gameObject.layer == 22/*CircleTrigger*/)
+        {
+            Debug.Log("Circle Match Identified");
+            gameManager.removeCircleOutline(transform);
+        }
     }
 }
