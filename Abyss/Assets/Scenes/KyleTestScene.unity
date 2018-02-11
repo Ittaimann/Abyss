@@ -522,6 +522,11 @@ Prefab:
       propertyPath: bounceForce
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2099855730}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
   m_IsPrefabParent: 0
@@ -617,7 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85805ad65df920440b28161ca2278dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 2099855730}
+  rotationAmountPerGravChange: 45
 --- !u!1001 &1956110587
 Prefab:
   m_ObjectHideFlags: 0

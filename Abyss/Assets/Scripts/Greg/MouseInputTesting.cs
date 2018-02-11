@@ -9,7 +9,10 @@ public class MouseInputTesting : MonoBehaviour {
     public float doubleTapTime;
     public float movementIgnoreRadius;
     public float bounceForce;
+    public Camera cam;
     public GameManager gm;
+
+    private Quaternion offset;
 
 
     /// raycast stuff for bounce
@@ -30,6 +33,7 @@ public class MouseInputTesting : MonoBehaviour {
     void Start () {
         desiredVelocity = Vector2.zero;
         startingVelocity = Vector2.zero;
+        offset = transform.rotation;
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -49,6 +53,7 @@ public class MouseInputTesting : MonoBehaviour {
     }
 
     void Update () {
+        transform.rotation = offset * cam.transform.rotation;// this line is unrelated to the rest of the script, I just didnt want to make another script for two lines.
         if (Input.GetMouseButtonDown(0)) {
             if (isDoubleTap)
             {
