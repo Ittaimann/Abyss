@@ -227,7 +227,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 650865157}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.7783875, y: 1.8130138, z: 0}
+  m_LocalPosition: {x: 5.82, y: 1.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 959858328}
   - component: {fileID: 959858331}
   - component: {fileID: 959858332}
+  - component: {fileID: 959858333}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -264,18 +265,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.2530651, y: -0.30041242}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.24, y: 10.24}
+    oldSize: {x: 1.41, y: 2.69}
     newSize: {x: 10.24, y: 10.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.151661, y: 9.47617}
+  m_Size: {x: 1.41, y: 2.56}
   m_EdgeRadius: 0
 --- !u!212 &959858329
 SpriteRenderer:
@@ -311,7 +312,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fb314b88b6b54e345b50c4ccf9eac1ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 342f4f349b50e6b409d50f13f54677b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -329,7 +330,7 @@ Transform:
   m_GameObject: {fileID: 959858327}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -369,10 +370,26 @@ MonoBehaviour:
   acceleration: 4
   doubleTapTime: 0.25
   movementIgnoreRadius: 1
+  bounceForce: 0
+  cam: {fileID: 2099855730}
+  gm: {fileID: 0}
   rotatorSystem: {fileID: 2099855732}
-  doubleTapTime: 0
-  movementIgnoreRadius: 0
-  rotatorSystem: {fileID: 2099855732}
+--- !u!114 &959858333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 959858327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db8bf98ef18b26d49a8d586e5f05d17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkFolder: Player/Walk
+  jumpFolder: Player/Jump
+  fps: 60
+  state: 0
+  facingRight: 1
 --- !u!1 &1295935896
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,7 +598,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1489160147}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.82, y: 1.83, z: 0}
+  m_LocalPosition: {x: 2.42, y: 1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
