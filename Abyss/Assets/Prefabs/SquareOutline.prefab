@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85805ad65df920440b28161ca2278dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  rotationAmountPerGravChange: 45
 --- !u!114 &114546262752536852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  RotationalLeniency: 0
+  RotationalLeniency: 10
 --- !u!212 &212684265729564954
 SpriteRenderer:
   m_ObjectHideFlags: 1
