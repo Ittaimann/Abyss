@@ -7,24 +7,43 @@ public class PrototypeRotatorSystem : MonoBehaviour {
 
     public int orientation;
     public float rotationSpeed;
+    public Rigidbody2D player;
+    private Dictionary<DeviceOrientation, int> orientationMap;
 
     Coroutine rotationCoroutine;
     Quaternion previousRot;
 
     void Start() {
-        previousRot = Camera.main.transform.localRotation;
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+        orientationMap = new Dictionary<DeviceOrientation, int>();
+        orientationMap[DeviceOrientation.LandscapeLeft] = 0;
+        orientationMap[DeviceOrientation.PortraitUpsideDown] = 1;
+        orientationMap[DeviceOrientation.LandscapeRight] = 2;
+        orientationMap[DeviceOrientation.Portrait] = 3;
+        previousRot = player.transform.localRotation;
+    }
+
+    void Awake() {
+         Input.gyro.enabled = true;
     }
 
     void Update () {
+
         int prevOrientation = orientation;
 
         // Ittai I swear to jesus on crackers if you lose your marbles because this prototype system uses GetKeyDown()...
-        if (Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.P) || (orientationMap.ContainsKey(Input.deviceOrientation) && orientationMap[Input.deviceOrientation] < orientation)) {
             orientation = --orientation < 0 ? 3 : orientation;
+            Debug.Log(orientation);
         }
-        if (Input.GetKeyDown(KeyCode.O)) {
+        if (Input.GetKeyDown(KeyCode.O) || (orientationMap.ContainsKey(Input.deviceOrientation) && orientationMap[Input.deviceOrientation] > orientation)) {
             orientation = ++orientation > 3 ? 0 : orientation;
         }
+
+        // if (orientationMap.ContainsKey(Input.deviceOrientation) && orientationMap[Input.deviceOrientation] != orientation)
+        // {
+            // orientation = orientationMap[Input.deviceOrientation];
+        // }
 
         // Rotate camera based on the orientation value
 
@@ -83,7 +102,7 @@ public class PrototypeRotatorSystem : MonoBehaviour {
 
     private IEnumerator RotationCoroutine(float changeZ, bool clockwise) {
         // Start where we currently are
-        Quaternion start = Camera.main.transform.localRotation;
+        Quaternion start = player.transform.localRotation;
 
         // Using a reference "previousRot" instead of start to rotate on, to keep rotations locked at 90deg
         Quaternion end = previousRot * Quaternion.Euler(Vector3.forward * changeZ);
@@ -92,15 +111,15 @@ public class PrototypeRotatorSystem : MonoBehaviour {
         float step = 0f;
 
         // while condition basically says, "if we're close enough to our destination (1 degree), leave" -- it's fine to be close enough and just leave
-        while ((Camera.main.transform.localRotation.eulerAngles.z-1) > end.eulerAngles.z || (Camera.main.transform.localRotation.eulerAngles.z+1) < end.eulerAngles.z) {
-            Camera.main.transform.localRotation = Quaternion.Lerp(start, end, Mathf.Sin(step));
+        while ((player.transform.localRotation.eulerAngles.z-1) > end.eulerAngles.z || (player.transform.localRotation.eulerAngles.z+1) < end.eulerAngles.z) {
+            player.transform.localRotation = Quaternion.Lerp(start, end, Mathf.Sin(step));
             yield return new WaitForSeconds(Time.deltaTime);
             step += Time.deltaTime*rotationSpeed;
             step = Mathf.Clamp(step, 0, Mathf.PI/2f);
         }
 
         // assuming we're not 100% on target from the while loop, lock the rotation to what we wanted to line it up perfectly
-        Camera.main.transform.localRotation = end;
+        player.transform.localRotation = end;
 
         // using a variable to check if rotation is already running -- we're done, so we set this to null
         rotationCoroutine = null;

@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/GregTestScene.unity
     guid: b3e77e163b03c2f44bb995cb20c51208
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ChristianTestScene.unity
     guid: be08ccfb5fab043468554320fbf910f1
+  - enabled: 0
+    path: Assets/Scenes/Puzzle1.unity
+    guid: c072248d4eb18b842abf5bfe728e8708
+  - enabled: 0
+    path: Assets/Scenes/Puzzle2.unity
+    guid: 43bc488494aa8e04199b52a012632805
+  - enabled: 1
+    path: Assets/Scenes/Puzzle3.unity
+    guid: 15855215ca0e5bd408151ee23b3e7cc0

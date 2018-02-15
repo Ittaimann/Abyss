@@ -25,13 +25,13 @@ public class OutlineCancelChecking : MonoBehaviour {
 	}
     public void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("A collision was entered.\n");
+        // Debug.Log("A collision was entered.\n");
     }
     public void OnTriggerStay2D(Collider2D other)
     {
         if(this.gameObject.layer == 16/*SquareTrigger*/ && other.gameObject.layer == 16/*SquareTrigger*/)
         {
-            //Debug.Log("Testing a Square Collision.\n     " + transform.rotation.eulerAngles.z + " vs " + other.transform.rotation.eulerAngles.z);
+            // Debug.Log("Testing a Square Collision.\n     " + transform.rotation.eulerAngles.z + " vs " + Mathf.Abs(transform.rotation.eulerAngles.z - other.transform.rotation.eulerAngles.z) % 90);
             float toTest = Mathf.Abs(transform.rotation.eulerAngles.z - other.transform.rotation.eulerAngles.z) % 90;
             toTest = (toTest > 45) ? toTest - 90 : toTest;
            // Debug.Log("\ntoTest = " + Mathf.Abs(toTest));
@@ -43,7 +43,7 @@ public class OutlineCancelChecking : MonoBehaviour {
         }
         else if (this.gameObject.layer == 19/*TriangleTrigger*/ && other.gameObject.layer == 19/*TriangleTrigger*/)
         {
-           // Debug.Log("Testing a Triangle Collision.\n     " + transform.rotation.eulerAngles.z + " vs " + other.transform.rotation.eulerAngles.z);
+            // Debug.Log("Testing a Triangle Collision.\n     " + transform.rotation.eulerAngles.z + " vs " + other.transform.rotation.eulerAngles.z);
             if (Mathf.Abs(transform.rotation.eulerAngles.z - other.transform.rotation.eulerAngles.z) < RotationalLeniency)
             {
                 Debug.Log("Triangle Match Identified");

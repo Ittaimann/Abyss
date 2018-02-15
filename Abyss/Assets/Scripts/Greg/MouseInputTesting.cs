@@ -58,7 +58,7 @@ public class MouseInputTesting : MonoBehaviour {
 
     void Update () {
         //Debug.Log(grounded);
-        transform.rotation = offset * cam.transform.rotation;// this line is unrelated to the rest of the script, I just didnt want to make another script for two lines.
+        //transform.rotation = offset * cam.transform.rotation;// this line is unrelated to the rest of the script, I just didnt want to make another script for two lines.
         if (Input.GetMouseButtonDown(0)) {
             if (isDoubleTap)
             {
