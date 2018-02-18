@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+    public GameObject exitParent;//deactivated upon start, reactivated upon all object lists being emptied.
     //these are temp and used to have a full local list of objects in the scene
     public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent, circleParent, circleOutlineParent;
     private List<Transform> squares, squareOutlines, triangles, triangleOutlines, circles, circleOutlines;
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
+        exitParent.SetActive(false);
+
         squares = new List<Transform>();
         foreach (Transform t in squareParent.transform)
             squares.Add(t);
@@ -19,7 +22,6 @@ public class GameManager : MonoBehaviour {
         squareOutlines = new List<Transform>();
         foreach (Transform t in squareOutlineParent.transform)
             squareOutlines.Add(t);
-
 
         triangles = new List<Transform>();
         foreach (Transform t in triangleParent.transform)
@@ -44,16 +46,19 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         manageShapes();
+
+        if (isLevelClear())
+            activateExits();
         //temp testing code
         if (Input.GetKeyDown(KeyCode.Q))
         {
             for (int i = 0; i < SceneManager.sceneCount; ++i)
                 Debug.Log(SceneManager.GetSceneAt(i));
-            //loadScene("Assets/Scenes/Puzzle3.unity");
+            loadScene("Assets/Scenes/Puzzle3.unity");
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            //loadScene("Assets/Scenes/Puzzle2.unity");
+            loadScene("Assets/Scenes/Puzzle2.unity");
         }
 	}
 
@@ -142,6 +147,16 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    public bool isLevelClear()
+    {
+        return (circleOutlines.Count == 0 && squareOutlines.Count == 0 && triangleOutlines.Count == 0);
+    }
+
+    public void activateExits()
+    {
+        exitParent.SetActive(true);
+    }
+
     public void removeSquareOutline(Transform toRemove)
     {
         squareOutlines.Remove(toRemove);
@@ -176,14 +191,15 @@ public class GameManager : MonoBehaviour {
         while (!asyncLoad.isDone)
         {
             Debug.Log("Finished loading scene: \"" + sceneToLoad + '\"');
-            foreach (GameObject g in FindObjectsOfType<GameObject>())
+            
+            /*foreach (GameObject g in FindObjectsOfType<GameObject>())
             {
                // Debug.Log(g.scene.name + " vs " + SceneManager.GetActiveScene().name + "\n" + SceneManager.GetSceneByPath(sceneToLoad).name);
                 if (g.scene != SceneManager.GetActiveScene())
                 {
                     g.SetActive(false);
                 }
-            }
+            }*/
             yield return null;
         }
     }

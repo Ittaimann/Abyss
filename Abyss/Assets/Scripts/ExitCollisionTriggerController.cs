@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ExitCollisionTriggerController : MonoBehaviour {
 
-    public GameObject room, player;
+    public GameObject player;
 	
     public void OnTriggerEnter2D(Collider2D other)
     {
