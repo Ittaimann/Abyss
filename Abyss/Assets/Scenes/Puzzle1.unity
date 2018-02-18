@@ -217,6 +217,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: bufferedScenes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4674454815323328, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -284,6 +289,21 @@ Prefab:
       propertyPath: circleOutlineParent
       value: 
       objectReference: {fileID: 1290076975}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: bufferedScenes.Array.data[0]
+      value: Assets/Scenes/Puzzle3.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: bufferedScenes.Array.data[1]
+      value: Assets/Scenes/Puzzle2.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: bufferedScenes.Array.data[2]
+      value: Assets/Scenes/Puzzle3.unity
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
   m_IsPrefabParent: 0

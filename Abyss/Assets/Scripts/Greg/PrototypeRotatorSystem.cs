@@ -34,7 +34,7 @@ public class PrototypeRotatorSystem : MonoBehaviour {
         // Ittai I swear to jesus on crackers if you lose your marbles because this prototype system uses GetKeyDown()...
         if (Input.GetKeyDown(KeyCode.P) || (orientationMap.ContainsKey(Input.deviceOrientation) && orientationMap[Input.deviceOrientation] < orientation)) {
             orientation = --orientation < 0 ? 3 : orientation;
-            Debug.Log(orientation);
+            //Debug.Log(orientation);
         }
         if (Input.GetKeyDown(KeyCode.O) || (orientationMap.ContainsKey(Input.deviceOrientation) && orientationMap[Input.deviceOrientation] > orientation)) {
             orientation = ++orientation > 3 ? 0 : orientation;

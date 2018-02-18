@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     //these are temp and used to have a full local list of objects in the scene
     public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent, circleParent, circleOutlineParent;
     private List<Transform> squares, squareOutlines, triangles, triangleOutlines, circles, circleOutlines;
+
+    public string[] bufferedScenes;//a list of all scenes that can need to be loaded
     
 	// Use this for initialization
 	void Start () {
@@ -33,12 +36,27 @@ public class GameManager : MonoBehaviour {
         circleOutlines = new List<Transform>();
         foreach (Transform t in circleOutlineParent.transform)
             circleOutlines.Add(t);
+
+        foreach (string s in bufferedScenes)
+            StartCoroutine(LoadScene(s));
     }
 	
 	// Update is called once per frame
 	void Update () {
         manageShapes();
+        //temp testing code
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            for (int i = 0; i < SceneManager.sceneCount; ++i)
+                Debug.Log(SceneManager.GetSceneAt(i));
+            //loadScene("Assets/Scenes/Puzzle3.unity");
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            //loadScene("Assets/Scenes/Puzzle2.unity");
+        }
 	}
+
     public void bounceAllGroundedShapes(float bounceStrength)
     {
         ContactPoint2D[] contPoints = new ContactPoint2D[16];
@@ -141,4 +159,42 @@ public class GameManager : MonoBehaviour {
        circleOutlines.Remove(toRemove);
         Destroy(toRemove.gameObject);
     }
+
+    public void loadScene(string sceneName)
+    {
+        Scene toUnload = SceneManager.GetActiveScene();
+        //if the scene you are trying to set as active is ready to be loaded, set it, then start unloading the old scene.
+        if (SceneManager.SetActiveScene(SceneManager.GetSceneByPath(sceneName)))
+            StartCoroutine(UnloadScene(toUnload));
+    }
+
+    private IEnumerator LoadScene(string sceneToLoad)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
+
+        //Wait until the last operation fully loads to return anything
+        while (!asyncLoad.isDone)
+        {
+            Debug.Log("Finished loading scene: \"" + sceneToLoad + '\"');
+            foreach (GameObject g in FindObjectsOfType<GameObject>())
+            {
+               // Debug.Log(g.scene.name + " vs " + SceneManager.GetActiveScene().name + "\n" + SceneManager.GetSceneByPath(sceneToLoad).name);
+                if (g.scene != SceneManager.GetActiveScene())
+                {
+                    g.SetActive(false);
+                }
+            }
+            yield return null;
+        }
+    }
+
+    private IEnumerator UnloadScene(Scene sceneToUnload)
+    {
+        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneToUnload);
+        while (!asyncUnload.isDone)
+        {
+            yield return null;
+        }
+    }
+
 }
