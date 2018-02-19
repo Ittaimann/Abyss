@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent, circleParent, circleOutlineParent;
     private List<Transform> squares, squareOutlines, triangles, triangleOutlines, circles, circleOutlines;
 
-    public string[] bufferedScenes;//a list of all scenes that can need to be loaded
+    public string next, restart;//scenes paths to preload
     
 	// Use this for initialization
 	void Start () {
@@ -39,29 +39,49 @@ public class GameManager : MonoBehaviour {
         foreach (Transform t in circleOutlineParent.transform)
             circleOutlines.Add(t);
 
-        foreach (string s in bufferedScenes)
-            StartCoroutine(LoadScene(s));
+        if (this.gameObject.scene == SceneManager.GetActiveScene())
+            preloadSceneReferences();
+        
     }
 	
+    public void preloadSceneReferences()// needs to be public in order for destroyed scene's gameManager to trigger the next gameManager to load their references
+    {
+        //if the path to a scene is not provided, there is no scene therefore do nothing
+        if (next != "")
+        {
+            // if there was a scene path, check to see if it was already loaded in, if not load it in.
+            Scene test = SceneManager.GetSceneByPath(next);
+            if (!test.IsValid())
+            {
+                StartCoroutine(LoadScene(next));
+            }
+        }
+
+        if (restart != "")
+        {
+            Scene test = SceneManager.GetSceneByPath(restart);
+            if (!test.IsValid())
+            {
+                StartCoroutine(LoadScene(restart));
+            }
+        }
+    }
 	// Update is called once per frame
 	void Update () {
         manageShapes();
 
         if (isLevelClear())
             activateExits();
-        //temp testing code
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.R) && restart != "")
         {
-            //for (int i = 0; i < SceneManager.sceneCount; ++i)
-              //  Debug.Log(SceneManager.GetSceneAt(i));
-            loadScene("Assets/Scenes/Puzzle1.unity");
+            //restart level
+            loadScene(restart);
         }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            loadScene("Assets/Scenes/Puzzle2.unity");
-        }
-	}
-
+    }
+    public void loadNextLevel()
+    {
+        loadScene(next);
+    }
     public void bounceAllGroundedShapes(float bounceStrength)
     {
         ContactPoint2D[] contPoints = new ContactPoint2D[16];
@@ -113,7 +133,7 @@ public class GameManager : MonoBehaviour {
                 }
         }
     }
-    public void manageShapes()
+    private void manageShapes()
     {
         //Debug.Log(squareOutlines.Count);
         if (triangleOutlines.Count == 0 && triangles.Count != 0)
@@ -152,7 +172,7 @@ public class GameManager : MonoBehaviour {
         return (circleOutlines.Count == 0 && squareOutlines.Count == 0 && triangleOutlines.Count == 0);
     }
 
-    public void activateExits()
+    private void activateExits()
     {
         exitParent.SetActive(true);
     }
@@ -175,23 +195,39 @@ public class GameManager : MonoBehaviour {
         Destroy(toRemove.gameObject);
     }
 
-    public void loadScene(string sceneName)
+    //given a string path to a scene that has *already* been loaded into the game, it will swap focus to that scene and delete the current and invoke the generation of any referenced scenes
+    private void loadScene(string sceneName)
     {
         Scene toUnload = SceneManager.GetActiveScene();
         //if the scene you are trying to set as active is ready to be loaded, set it, make everything in it active (except exits), and finally start unloading the old scene.
-        if (SceneManager.SetActiveScene(SceneManager.GetSceneByPath(sceneName)))
+        if(SceneManager.SetActiveScene(SceneManager.GetSceneByPath(sceneName)))
         {
+            //deactivate all objects in deleting scene (so they don't bump things on their way out)
+            foreach(GameObject g in toUnload.GetRootGameObjects())
+            {
+                if(g.name != "GameManager")//GameManager must be preserved in order to actually call the UnloadScene Coroutine
+                    g.SetActive(false);
+            }
+            //activate all objects in loading scene
             foreach (GameObject g in SceneManager.GetActiveScene().GetRootGameObjects())
             {
-                //Debug.Log("scene of object: " + g.scene.name + "    active scene: " + SceneManager.GetActiveScene().name + "\nscene just loaded: " + SceneManager.GetSceneByPath(sceneName).name);
                 if (g.scene == SceneManager.GetActiveScene() && g.name != "Exits")
                 {
                     g.SetActive(true);
+                    if(g.name == "GameManager")
+                    {
+                        //normally this is called in the start function of a gameobject, but because of the way scenes are being loaded in (spawn all objects first then deactivate and wait)
+                        //this needs to be called on the new scenes game manager when it is being made active so that way it knows when to load its referenced scenes.
+                        g.GetComponent<GameManager>().preloadSceneReferences();
+                    }
                 }
             }
             StartCoroutine(UnloadScene(toUnload));
         }
-            
+        else
+        {
+            Debug.Log("Failed to switch to a scene. Wasn't yet loaded.");
+        }
     }
 
     private IEnumerator LoadScene(string sceneToLoad)
@@ -201,18 +237,16 @@ public class GameManager : MonoBehaviour {
         //Wait until the last operation fully loads to return anything
         while (!asyncLoad.isDone)
         {
-            Debug.Log("Finished loading scene: \"" + sceneToLoad + '\"');
-            //this block here refuses to do anything useful
-            /*foreach (GameObject g in SceneManager.GetSceneByPath(sceneToLoad).GetRootGameObjects())
-            {
-                //Debug.Log("scene of object: " + g.scene.name + "    active scene: " + SceneManager.GetActiveScene().name + "\nscene just loaded: " + SceneManager.GetSceneByPath(sceneToLoad).name);
-                if (g.scene != SceneManager.GetActiveScene())
-                {
-                    g.SetActive(false);
-                }
-            }*/
             yield return null;
         }
+        foreach (GameObject g in SceneManager.GetSceneByPath(sceneToLoad).GetRootGameObjects())
+        {
+            if (g.scene != SceneManager.GetActiveScene())
+            {
+                g.SetActive(false);
+            }
+        }
+        Debug.Log("Finished loading scene: \"" + sceneToLoad + '\"' + "\nFull Path: " + SceneManager.GetSceneByPath(sceneToLoad).path);
     }
 
     private IEnumerator UnloadScene(Scene sceneToUnload)

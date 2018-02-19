@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &154234304
 Transform:
   m_ObjectHideFlags: 0
@@ -220,13 +220,18 @@ Prefab:
       objectReference: {fileID: 1290076975}
     - target: {fileID: 1333203705578546, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
         type: 2}
       propertyPath: exitParent
       value: 
       objectReference: {fileID: 1614656794}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: next
+      value: Assets/Scenes/Puzzle3.unity
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
   m_IsPrefabParent: 0
@@ -379,13 +384,13 @@ GameObject:
   - component: {fileID: 1295935897}
   - component: {fileID: 1295935900}
   - component: {fileID: 1295935899}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Room
   m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1295935897
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -437,7 +442,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1295935896}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 8, y: 8, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -587,7 +592,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1043017651259422, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
@@ -722,6 +727,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114163810608848142, guid: 12f44ce6991e01545ba1ac7e226c96de,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1385210031}
+    - target: {fileID: 114163810608848142, guid: 12f44ce6991e01545ba1ac7e226c96de,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 683252035}
+    - target: {fileID: 114328000458832802, guid: 12f44ce6991e01545ba1ac7e226c96de,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1385210031}
+    - target: {fileID: 1890170784791306, guid: 12f44ce6991e01545ba1ac7e226c96de, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12f44ce6991e01545ba1ac7e226c96de, type: 2}
   m_IsPrefabParent: 0
@@ -832,7 +856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &2099855728
 AudioListener:
   m_ObjectHideFlags: 0
@@ -936,7 +960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2134483080
 Transform:
   m_ObjectHideFlags: 0

@@ -23,3 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Puzzle3.unity
     guid: 15855215ca0e5bd408151ee23b3e7cc0
+  - enabled: 1
+    path: Assets/Scenes/KyleAltTestScene.unity
+    guid: d8b37b574ccf20f4a9d73a993d449f59
+  - enabled: 1
+    path: Assets/Scenes/KyleTestScene.unity
+    guid: 31d0c526eddd7594b999e6dc81995830
+  - enabled: 1
+    path: Assets/Scenes/KyleAltAltTestScene.unity
+    guid: 27a7cb5533b02aa4bb37a0fd81926fdd

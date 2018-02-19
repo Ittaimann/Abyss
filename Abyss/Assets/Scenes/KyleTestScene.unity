@@ -350,18 +350,33 @@ Prefab:
     - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
         type: 2}
       propertyPath: bufferedScenes.Array.data[0]
-      value: Assets/Scenes/Puzzle1.unity
+      value: '"Assets/Scenes/Puzzle1.unity"'
       objectReference: {fileID: 0}
     - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
         type: 2}
       propertyPath: bufferedScenes.Array.data[1]
-      value: Assets/Scenes/Puzzle2.unity
+      value: '"Assets/Scenes/Puzzle.unity'
       objectReference: {fileID: 0}
     - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
         type: 2}
       propertyPath: exitParent
       value: 
       objectReference: {fileID: 557749666}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: bufferedScenes.Array.data[2]
+      value: Assets/Scenes/KyleAltTestScene.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: next
+      value: Assets/Scenes/Puzzle1.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: restart
+      value: Assets/Scenes/KyleAltTestScene.unity
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
   m_IsPrefabParent: 0
@@ -419,6 +434,11 @@ Prefab:
       propertyPath: player
       value: 
       objectReference: {fileID: 1385210031}
+    - target: {fileID: 114163810608848142, guid: 12f44ce6991e01545ba1ac7e226c96de,
+        type: 2}
+      propertyPath: gm
+      value: 
+      objectReference: {fileID: 683252035}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12f44ce6991e01545ba1ac7e226c96de, type: 2}
   m_IsPrefabParent: 0
