@@ -52,9 +52,9 @@ public class GameManager : MonoBehaviour {
         //temp testing code
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            for (int i = 0; i < SceneManager.sceneCount; ++i)
-                Debug.Log(SceneManager.GetSceneAt(i));
-            loadScene("Assets/Scenes/Puzzle3.unity");
+            //for (int i = 0; i < SceneManager.sceneCount; ++i)
+              //  Debug.Log(SceneManager.GetSceneAt(i));
+            loadScene("Assets/Scenes/Puzzle1.unity");
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
@@ -178,9 +178,20 @@ public class GameManager : MonoBehaviour {
     public void loadScene(string sceneName)
     {
         Scene toUnload = SceneManager.GetActiveScene();
-        //if the scene you are trying to set as active is ready to be loaded, set it, then start unloading the old scene.
+        //if the scene you are trying to set as active is ready to be loaded, set it, make everything in it active (except exits), and finally start unloading the old scene.
         if (SceneManager.SetActiveScene(SceneManager.GetSceneByPath(sceneName)))
+        {
+            foreach (GameObject g in SceneManager.GetActiveScene().GetRootGameObjects())
+            {
+                //Debug.Log("scene of object: " + g.scene.name + "    active scene: " + SceneManager.GetActiveScene().name + "\nscene just loaded: " + SceneManager.GetSceneByPath(sceneName).name);
+                if (g.scene == SceneManager.GetActiveScene() && g.name != "Exits")
+                {
+                    g.SetActive(true);
+                }
+            }
             StartCoroutine(UnloadScene(toUnload));
+        }
+            
     }
 
     private IEnumerator LoadScene(string sceneToLoad)
@@ -191,10 +202,10 @@ public class GameManager : MonoBehaviour {
         while (!asyncLoad.isDone)
         {
             Debug.Log("Finished loading scene: \"" + sceneToLoad + '\"');
-            
-            /*foreach (GameObject g in FindObjectsOfType<GameObject>())
+            //this block here refuses to do anything useful
+            /*foreach (GameObject g in SceneManager.GetSceneByPath(sceneToLoad).GetRootGameObjects())
             {
-               // Debug.Log(g.scene.name + " vs " + SceneManager.GetActiveScene().name + "\n" + SceneManager.GetSceneByPath(sceneToLoad).name);
+                //Debug.Log("scene of object: " + g.scene.name + "    active scene: " + SceneManager.GetActiveScene().name + "\nscene just loaded: " + SceneManager.GetSceneByPath(sceneToLoad).name);
                 if (g.scene != SceneManager.GetActiveScene())
                 {
                     g.SetActive(false);
