@@ -196,11 +196,12 @@ public class GameManager : MonoBehaviour {
     }
 
     //given a string path to a scene that has *already* been loaded into the game, it will swap focus to that scene and delete the current and invoke the generation of any referenced scenes
+    // this function will also clean up any preloaded scenes that are no longer referenced by the active scene
     private void loadScene(string sceneName)
     {
         Scene toUnload = SceneManager.GetActiveScene();
         //if the scene you are trying to set as active is ready to be loaded, set it, make everything in it active (except exits), and finally start unloading the old scene.
-        if(SceneManager.SetActiveScene(SceneManager.GetSceneByPath(sceneName)))
+        if(SceneManager.GetSceneByPath(sceneName).isLoaded && SceneManager.SetActiveScene(SceneManager.GetSceneByPath(sceneName)))
         {
             //deactivate all objects in deleting scene (so they don't bump things on their way out)
             foreach(GameObject g in toUnload.GetRootGameObjects())
@@ -223,6 +224,28 @@ public class GameManager : MonoBehaviour {
                 }
             }
             StartCoroutine(UnloadScene(toUnload));
+            //now that the scene swapped from the current to a new one, unload any scenes that were preloaded but are no longer called for in the references of the current scene.
+            //Debug.Log("After switching the remaining loaded scenes are as follows: ");
+            for (int i = 0; i < SceneManager.sceneCount; ++i)
+            {
+                Scene temp = SceneManager.GetSceneAt(i);
+                //Debug.Log(temp.name + " which has an isLoaded value of " + temp.isLoaded);
+                //if a scene is still loaded but it isnt the active scene, it was a preloaded scene left over from the last scene and therefore could need to be removed
+                if(temp.isLoaded && temp != SceneManager.GetActiveScene())
+                {
+                    bool shouldUnload = false;
+                    foreach (GameObject g in SceneManager.GetActiveScene().GetRootGameObjects()) {
+                        //if(g.name == "GameManager")
+                        //  Debug.Log(temp.path + " " + g.GetComponent<GameManager>().restart + " " + g.GetComponent<GameManager>().next);
+                        if (g.name == "GameManager" && !(g.GetComponent<GameManager>().restart == temp.path || g.GetComponent<GameManager>().next == temp.path)) {
+                            shouldUnload = true;
+                            break;
+                        }
+                    }
+                    if(shouldUnload)
+                        StartCoroutine(UnloadScene(temp));
+                }
+            }
         }
         else
         {
@@ -239,6 +262,9 @@ public class GameManager : MonoBehaviour {
         {
             yield return null;
         }
+        //uncomment to exaggerate issue
+        //for(int i = 0; i < 10; ++i)
+        //   yield return null;
         foreach (GameObject g in SceneManager.GetSceneByPath(sceneToLoad).GetRootGameObjects())
         {
             if (g.scene != SceneManager.GetActiveScene())
