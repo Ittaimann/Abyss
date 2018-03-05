@@ -9,6 +9,7 @@ public class MouseInputTesting : MonoBehaviour {
     public float doubleTapTime;
     public float movementIgnoreRadius;
     public float bounceForce;
+    public float grabRange;
     public Camera cam;
     public GameManager gm;
 
@@ -71,9 +72,35 @@ public class MouseInputTesting : MonoBehaviour {
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 if (hit.collider != null)
                 {
-                    Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
-                    this.GetComponent<Rigidbody2D>().AddForce(1.0f/10 * bounceForce * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
-                    gm.bounceAllGroundedShapes(bounceForce);
+                    Debug.Log("Target Tag: " + hit.collider.gameObject.tag + "  Target Name: " + hit.collider.gameObject.name);
+                    if(hit.collider.gameObject.tag == "Player")
+                    {
+                        this.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        gm.bounceAllGroundedShapes(bounceForce);
+                    }else if (hit.collider.gameObject.tag == "SolidObjects")
+                    {
+                        //could've actually hit the outer collider instead of the object itself, if so assign sc as that of the parent, the true object
+                        ShapeController sc = (hit.collider.gameObject.name == "OuterCollider")?hit.collider.transform.parent.GetComponent<ShapeController>():hit.collider.gameObject.GetComponent<ShapeController>();
+                        if (sc.isGrabbed())
+                        {
+                            sc.unbind();
+                            Debug.Log("Player released \"" + hit.collider.transform.name + "\"");
+                        }
+                        // if clicked object is close enough to grab
+                        else if (Vector3.Distance(transform.position, hit.collider.transform.position) <= grabRange)
+                        {
+                            sc.bind(transform);//this script is already attached to the player, so it is passing the transform of the player
+                            Debug.Log("Player grabbed \"" + hit.collider.transform.name + "\"");
+                        }
+                        else
+                        {
+                            Debug.Log("Tried to bind object \"" + hit.collider.transform.name + "\" to player but player was too far away.");
+                        }
+                    }
+                    {
+
+                    }
+                    
                 }
                 else
                 {

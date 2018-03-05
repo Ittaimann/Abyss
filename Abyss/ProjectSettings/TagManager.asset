@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Room
+  - SolidObjects
   layers:
   - Default
   - TransparentFX

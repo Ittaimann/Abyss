@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212598807820790170}
   - component: {fileID: 61086883955666580}
   - component: {fileID: 50761146345122906}
+  - component: {fileID: 114685163437871072}
   m_Layer: 19
   m_Name: Triangle
-  m_TagString: Untagged
+  m_TagString: SolidObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +41,7 @@ GameObject:
   - component: {fileID: 60011283053421106}
   m_Layer: 17
   m_Name: OuterCollider
-  m_TagString: Untagged
+  m_TagString: SolidObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,6 +147,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &114685163437871072
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1107966975067790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e970d9d2f3a34cc44be5cd1dcfc209ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212598807820790170
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61673622638647258}
   m_Layer: 14
   m_Name: OuterCollider
-  m_TagString: Untagged
+  m_TagString: SolidObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,9 +38,10 @@ GameObject:
   - component: {fileID: 212987329242615548}
   - component: {fileID: 61942275113763138}
   - component: {fileID: 50235972388063870}
+  - component: {fileID: 114868957145737374}
   m_Layer: 16
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: SolidObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,6 +143,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &114868957145737374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1501660498941610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e970d9d2f3a34cc44be5cd1dcfc209ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212987329242615548
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212170661173921976}
   - component: {fileID: 50293285404692648}
   - component: {fileID: 58043768725096422}
+  - component: {fileID: 114681383173390556}
   m_Layer: 22
   m_Name: Circle
-  m_TagString: Untagged
+  m_TagString: SolidObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,7 +41,7 @@ GameObject:
   - component: {fileID: 58328301034041562}
   m_Layer: 20
   m_Name: OuterCollider
-  m_TagString: Untagged
+  m_TagString: SolidObjects
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -122,6 +123,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &114681383173390556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189770931490024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e970d9d2f3a34cc44be5cd1dcfc209ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212170661173921976
 SpriteRenderer:
   m_ObjectHideFlags: 1
