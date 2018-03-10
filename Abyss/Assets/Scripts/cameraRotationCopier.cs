@@ -6,8 +6,11 @@ public class cameraRotationCopier : MonoBehaviour {
     public float rotationAmountPerGravChange = 45;
     private Vector2 current;
     private Quaternion rotationAmount;
+    private Quaternion targetRotation;
+    //private Quaternion temp;
 	// Use this for initialization
 	void Start () {
+        targetRotation = transform.rotation;
         current = Physics2D.gravity;
         rotationAmount.eulerAngles = new Vector3(0, 0, rotationAmountPerGravChange);
 	}
@@ -17,8 +20,11 @@ public class cameraRotationCopier : MonoBehaviour {
         if(Physics2D.gravity != current)
         {
             //determine change, use cross product to determine direction the gravity rotated, then apply the rotationAmount change in that direction
-            transform.rotation *= (Vector3.Cross(current, Physics2D.gravity).z > 0) ? rotationAmount : Quaternion.Inverse(rotationAmount);
+            targetRotation *= (Vector3.Cross(current, Physics2D.gravity).z > 0) ? rotationAmount : Quaternion.Inverse(rotationAmount);
             current = Physics2D.gravity;
+
         }
+        
+        transform.rotation = Quaternion.Slerp(transform.rotation,targetRotation,.1f);  
 	}
 }
