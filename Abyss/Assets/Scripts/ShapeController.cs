@@ -34,7 +34,6 @@ public class ShapeController : MonoBehaviour {
         this.gameObject.transform.GetChild(0).GetComponent<Collider2D>().isTrigger = false;
         toCopy = null;
     }
-
     public bool isGrabbed()
     {
         return isPositionallyBound;
