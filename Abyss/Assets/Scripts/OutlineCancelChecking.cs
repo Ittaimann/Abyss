@@ -47,6 +47,7 @@ public class OutlineCancelChecking : MonoBehaviour {
             if (Mathf.Abs(transform.rotation.eulerAngles.z - other.transform.rotation.eulerAngles.z) < RotationalLeniency)
             {
                 Debug.Log("Triangle Match Identified");
+                //Debug.Log("name: " + transform.name);
                 gameManager.removeTriangleOutline(transform);
             }
         }

@@ -19,10 +19,12 @@ public class ShapeController : MonoBehaviour {
     {
         //oldParent = transform.parent;
         //transform.parent = other;
-        //initOffset = transform.position - other.transform.position + (Vector3)(-01f * Physics2D.gravity.normalized); ;
+        initOffset =  transform.position - other.transform.position + (Vector3)(-0.1f * Physics2D.gravity.normalized);
         isPositionallyBound = true;
         toCopy = other;
         this.gameObject.transform.GetChild(0).GetComponent<Collider2D>().isTrigger = true;
+        //other.GetComponent<Rigidbody2D>().isKinematic = true;
+        this.gameObject.transform.GetComponent<Rigidbody2D>().isKinematic = true;
 
     }
 
@@ -32,9 +34,9 @@ public class ShapeController : MonoBehaviour {
         //initOffset = new Vector3();
         isPositionallyBound = false;
         this.gameObject.transform.GetChild(0).GetComponent<Collider2D>().isTrigger = false;
+        this.gameObject.transform.GetComponent<Rigidbody2D>().isKinematic = false;
         toCopy = null;
     }
-
     public bool isGrabbed()
     {
         return isPositionallyBound;
@@ -44,9 +46,11 @@ public class ShapeController : MonoBehaviour {
     //but so it can also not leave the playspace
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Room")
+        if (other.tag != "Player" && other.gameObject.layer + 1 != this.gameObject.layer && other.gameObject.layer != this.gameObject.layer)
         {
-            Debug.Log("Collided with: " + other.tag);
+            Debug.Log(this.gameObject.tag + " on layer #" + this.gameObject.layer + " Collided with: " + other.tag + " on layer #" + other.gameObject.layer);
+            //other.gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            
             unbind();
         }
     }
