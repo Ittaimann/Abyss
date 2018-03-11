@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 61010265358550432}
   - component: {fileID: 114127039898690424}
   - component: {fileID: 114918844569240190}
+  - component: {fileID: 60744604132533256}
   m_Layer: 19
   m_Name: TriangleOutline
   m_TagString: Untagged
@@ -100,6 +101,33 @@ PolygonCollider2D:
     - - {x: 1.28, y: -1.28}
       - {x: 1.28, y: 1.28}
       - {x: -1.28, y: -1.28}
+--- !u!60 &60744604132533256
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961470971007486}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.22, y: -0.22}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1, y: 1.3}
+      - {x: 1, y: -1}
+      - {x: -1.3, y: -1}
 --- !u!61 &61010265358550432
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -150,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 45
+  test: 0
 --- !u!212 &212861077169870602
 SpriteRenderer:
   m_ObjectHideFlags: 1

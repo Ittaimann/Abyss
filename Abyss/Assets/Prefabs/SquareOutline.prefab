@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 61588728240152926}
   - component: {fileID: 114546262752536852}
   - component: {fileID: 114082379057613408}
+  - component: {fileID: 60514558558846616}
   m_Layer: 16
   m_Name: SquareOutline
   m_TagString: Untagged
@@ -73,6 +74,34 @@ Transform:
   m_Father: {fileID: 4810515078128144}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &60514558558846616
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1494710394433602}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.56}
+    newSize: {x: 2.56, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.2, y: 1.2}
+      - {x: -1.2, y: -1.2}
+      - {x: 1.2, y: -1.2}
+      - {x: 1.2, y: 1.2}
 --- !u!61 &61588728240152926
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -135,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 45
+  test: 0
 --- !u!114 &114546262752536852
 MonoBehaviour:
   m_ObjectHideFlags: 1
