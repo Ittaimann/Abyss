@@ -19,7 +19,7 @@ public class ShapeController : MonoBehaviour {
     {
         //oldParent = transform.parent;
         //transform.parent = other;
-        //initOffset = transform.position - other.transform.position + (Vector3)(-01f * Physics2D.gravity.normalized); ;
+        initOffset =  transform.position - other.transform.position + (Vector3)(-0.1f * Physics2D.gravity.normalized);
         isPositionallyBound = true;
         toCopy = other;
         this.gameObject.transform.GetChild(0).GetComponent<Collider2D>().isTrigger = true;

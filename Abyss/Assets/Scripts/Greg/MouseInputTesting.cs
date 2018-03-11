@@ -113,6 +113,8 @@ public class MouseInputTesting : MonoBehaviour {
 
                     if (grounded)
                     {
+                        //drop any objects grabbed then execute jump
+                        gm.unbindAllPossibleObjects();
                         GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
                         if (animator != null)
                             animator.SetState(PlayerState.JUMP, 16);

@@ -104,7 +104,7 @@ MonoBehaviour:
   doubleTapTime: 0.5
   movementIgnoreRadius: 0
   bounceForce: 300
-  grabRange: 2
+  grabRange: 3
   cam: {fileID: 0}
   gm: {fileID: 0}
   rotatorSystem: {fileID: 0}

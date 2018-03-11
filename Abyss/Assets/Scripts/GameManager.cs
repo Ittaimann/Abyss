@@ -84,6 +84,11 @@ public class GameManager : MonoBehaviour {
     }
     public void bounceAllGroundedShapes(float bounceStrength)
     {
+        //bounce any held objects, as they are not touching the ground and therefore will not be bounced by the following code
+        bounceAllBoundShapes(bounceStrength);
+        //then drop any held objects
+        unbindAllPossibleObjects();
+        //then do the actual checking
         ContactPoint2D[] contPoints = new ContactPoint2D[16];
         Collider2D[] collisions = new Collider2D[16];
         foreach (Transform square in squares)
@@ -133,6 +138,38 @@ public class GameManager : MonoBehaviour {
                 }
         }
     }
+    private void bounceAllBoundShapes(float bounceStrength)
+    {
+        foreach (Transform square in squares)
+        {
+            if (square.GetComponent<ShapeController>().isGrabbed())
+            {
+                square.GetComponent<ShapeController>().unbind();
+                square.GetComponent<Rigidbody2D>().velocity = new Vector2();
+                square.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+            }
+        }
+
+        foreach (Transform triangle in triangles)
+        {
+            if (triangle.GetComponent<ShapeController>().isGrabbed())
+            {
+                triangle.GetComponent<ShapeController>().unbind();
+                triangle.GetComponent<Rigidbody2D>().velocity = new Vector2();
+                triangle.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+            }
+        }
+
+        foreach (Transform circle in circles)
+        {
+            if (circle.GetComponent<ShapeController>().isGrabbed())
+            {
+                circle.GetComponent<ShapeController>().unbind();
+                circle.GetComponent<Rigidbody2D>().velocity = new Vector2();
+                circle.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+            }
+        }
+    }
     private void manageShapes()
     {
         //Debug.Log(squareOutlines.Count);
@@ -167,6 +204,32 @@ public class GameManager : MonoBehaviour {
 
     }
 
+    public void unbindAllPossibleObjects()
+    {
+        foreach (Transform square in squares)
+        {
+            if (square.GetComponent<ShapeController>().isGrabbed())
+            {
+                square.GetComponent<ShapeController>().unbind();
+            }
+        }
+
+        foreach(Transform triangle in triangles)
+        {
+            if (triangle.GetComponent<ShapeController>().isGrabbed())
+            {
+                triangle.GetComponent<ShapeController>().unbind();
+            }
+        }
+
+        foreach (Transform circle in circles)
+        {
+            if (circle.GetComponent<ShapeController>().isGrabbed())
+            {
+                circle.GetComponent<ShapeController>().unbind();
+            }
+        }
+    }
     public bool isLevelClear()
     {
         return (circleOutlines.Count == 0 && squareOutlines.Count == 0 && triangleOutlines.Count == 0);
