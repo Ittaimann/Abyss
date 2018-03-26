@@ -9,6 +9,9 @@
 	SubShader
 	{
 		Tags { "Queue"="Transparent" }
+			ZTest off
+		Cull Off
+
 		Blend SrcAlpha OneMinusSrcAlpha
 		Pass
 		{
