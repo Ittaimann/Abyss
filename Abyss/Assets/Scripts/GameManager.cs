@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour {
         {
             if (circle.GetComponent<ShapeController>().isGrabbed())
             {
+                Debug.Log("Whatever");
                 circle.GetComponent<ShapeController>().unbind();
                 circle.GetComponent<Rigidbody2D>().velocity = new Vector2();
                 circle.GetComponent<Rigidbody2D>().AddForce(-bounceStrength * Physics2D.gravity.normalized, ForceMode2D.Impulse);

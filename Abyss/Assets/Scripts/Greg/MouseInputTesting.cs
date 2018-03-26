@@ -12,6 +12,8 @@ public class MouseInputTesting : MonoBehaviour {
     public float grabRange;
     public Camera cam;
     public GameManager gm;
+    public bool isGhost;
+    public GameObject ghostPlayer;
 
     private Quaternion offset;
 
@@ -76,6 +78,7 @@ public class MouseInputTesting : MonoBehaviour {
                     if(hit.collider.gameObject.tag == "Player")
                     {
                         this.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        ghostPlayer.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * Physics2D.gravity.normalized, ForceMode2D.Impulse);
                         gm.bounceAllGroundedShapes(bounceForce);
                     }else if (hit.collider.gameObject.tag == "SolidObjects")
                     {
@@ -138,11 +141,14 @@ public class MouseInputTesting : MonoBehaviour {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
                     Mathf.SmoothStep(playerSpeed * prevDirection.x, playerSpeed * direction.x, movementLerpStep),
                     GetComponent<Rigidbody2D>().velocity.y);
+                ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(-GetComponent<Rigidbody2D>().velocity.x, ghostPlayer.GetComponent<Rigidbody2D>().velocity.y);
             } else if (rotatorSystem.orientation == 1 || rotatorSystem.orientation == 3) {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
                     GetComponent<Rigidbody2D>().velocity.x,
                     Mathf.SmoothStep(playerSpeed * prevDirection.y, playerSpeed * direction.y, movementLerpStep));
+                ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(ghostPlayer.GetComponent<Rigidbody2D>().velocity.x, -GetComponent<Rigidbody2D>().velocity.y);
             }
+            
 
             if (movementLerpStep < 1f) {
                 movementLerpStep += Time.deltaTime*acceleration;

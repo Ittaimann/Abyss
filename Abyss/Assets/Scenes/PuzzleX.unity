@@ -443,7 +443,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4901004129393644, guid: 9c1f41d7fc5a6bc48a9349534dc9256b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.36
+      value: -4.27
       objectReference: {fileID: 0}
     - target: {fileID: 4901004129393644, guid: 9c1f41d7fc5a6bc48a9349534dc9256b, type: 2}
       propertyPath: m_LocalPosition.z
@@ -690,6 +690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 90
+  test: 0
 --- !u!4 &1459697008 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4138507222968734, guid: 1b887c107c9a7cf45bbe1f7f37682cce,
@@ -1066,6 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 90
+  test: 0
 --- !u!1 &2134483079
 GameObject:
   m_ObjectHideFlags: 0

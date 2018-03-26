@@ -600,6 +600,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 90
+  test: 0
 --- !u!1001 &1513405155
 Prefab:
   m_ObjectHideFlags: 0
@@ -861,7 +862,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4901004129393644, guid: 9c1f41d7fc5a6bc48a9349534dc9256b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.35
+      value: -3.17
       objectReference: {fileID: 0}
     - target: {fileID: 4901004129393644, guid: 9c1f41d7fc5a6bc48a9349534dc9256b, type: 2}
       propertyPath: m_LocalPosition.z

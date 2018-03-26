@@ -5,6 +5,7 @@ using UnityEngine;
 public class cameraRotationCopier : MonoBehaviour {
     public float rotationAmountPerGravChange = 45;
     public bool test = false;
+    private List <string> blockLayers;
     private Vector2 current;
     private bool clockwise = true;
     private bool blocked = false;
@@ -16,6 +17,14 @@ public class cameraRotationCopier : MonoBehaviour {
     //private Quaternion temp;
 	// Use this for initialization
 	void Start () {
+        blockLayers = new List <string>();
+        if (this.gameObject.layer != 19)
+            blockLayers.Add("Triangle");
+        if (this.gameObject.layer != 16)
+            blockLayers.Add("Square");
+        if (this.gameObject.layer != 22)
+            blockLayers.Add("Circle");
+        
         targetRotation = transform.rotation;
         lastRotation = targetRotation;
         current = Physics2D.gravity;
@@ -69,7 +78,7 @@ public class cameraRotationCopier : MonoBehaviour {
             }
         }
 
-        if (GetComponent<PolygonCollider2D>().IsTouchingLayers(LayerMask.GetMask("Square", "Triangle", "Circle")))
+        if (GetComponent<PolygonCollider2D>().IsTouchingLayers(LayerMask.GetMask(blockLayers[0],blockLayers[1])))
         {
             if (!blocked)
             {

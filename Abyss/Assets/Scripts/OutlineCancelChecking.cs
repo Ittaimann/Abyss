@@ -13,9 +13,9 @@ public class OutlineCancelChecking : MonoBehaviour {
         Physics2D.IgnoreLayerCollision(17, 18, true);//triangle and triangleOutline
         Physics2D.IgnoreLayerCollision(20, 21, true);//circle and circleOutline
 
-        Physics2D.IgnoreLayerCollision(23, 15, true);//Player and squareOutline
-        Physics2D.IgnoreLayerCollision(23, 18, true);//Player and triangleOutline
-        Physics2D.IgnoreLayerCollision(23, 21, true);//Player and circleOutline
+        //Physics2D.IgnoreLayerCollision(23, 15, true);//Player and squareOutline
+        //Physics2D.IgnoreLayerCollision(23, 18, true);//Player and triangleOutline
+        //Physics2D.IgnoreLayerCollision(23, 21, true);//Player and circleOutline
 
 	}
 	
