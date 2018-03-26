@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 45
-  test: 0
+  canBeInterrupted: 1
 --- !u!212 &212861077169870602
 SpriteRenderer:
   m_ObjectHideFlags: 1

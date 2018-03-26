@@ -12,7 +12,7 @@ public class MouseInputTesting : MonoBehaviour {
     public float grabRange;
     public Camera cam;
     public GameManager gm;
-    public bool isGhost;
+    public bool isGhost = false;
     public GameObject ghostPlayer;
 
     private Quaternion offset;
@@ -60,9 +60,8 @@ public class MouseInputTesting : MonoBehaviour {
     }
 
     void Update () {
-        //Debug.Log(grounded);
-        //transform.rotation = offset * cam.transform.rotation;// this line is unrelated to the rest of the script, I just didnt want to make another script for two lines.
-        if (Input.GetMouseButtonDown(0)) {
+        //this block finds and interprets mouse click events in the scene
+        if (!isGhost && Input.GetMouseButtonDown(0)) {
             if (isDoubleTap)
             {
                 // If the double-tap coroutine is still running, stop it -- it can cause an issue at a specific edge case
@@ -75,11 +74,17 @@ public class MouseInputTesting : MonoBehaviour {
                 if (hit.collider != null)
                 {
                     Debug.Log("Target Tag: " + hit.collider.gameObject.tag + "  Target Name: " + hit.collider.gameObject.name);
+
+                    //BOUNCE
+
                     if(hit.collider.gameObject.tag == "Player")
                     {
                         this.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
-                        ghostPlayer.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * Physics2D.gravity.normalized, ForceMode2D.Impulse);
                         gm.bounceAllGroundedShapes(bounceForce);
+
+                    //GRAB
+
                     }else if (hit.collider.gameObject.tag == "SolidObjects")
                     {
                         //could've actually hit the outer collider instead of the object itself, if so assign sc as that of the parent, the true object
@@ -99,26 +104,18 @@ public class MouseInputTesting : MonoBehaviour {
                         {
                             Debug.Log("Tried to bind object \"" + hit.collider.transform.name + "\" to player but player was too far away.");
                         }
-                    }
-                    {
-
-                    }
-                    
+                    }                    
                 }
                 else
                 {
-                    // Jump Logic -- put it here as an AddForce, do some interpolation in Input.GetMouseButton(0), start a coroutine -- anything works
-                    Debug.Log(grounded);
-
-
-
-                  //  Debug.Log("jump");
+                  //JUMP
 
                     if (grounded)
                     {
                         //drop any objects grabbed then execute jump
                         gm.unbindAllPossibleObjects();
                         GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
+                        if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * Physics2D.gravity.normalized, ForceMode2D.Impulse);
                         if (animator != null)
                             animator.SetState(PlayerState.JUMP, 16);
                     }
@@ -141,12 +138,12 @@ public class MouseInputTesting : MonoBehaviour {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
                     Mathf.SmoothStep(playerSpeed * prevDirection.x, playerSpeed * direction.x, movementLerpStep),
                     GetComponent<Rigidbody2D>().velocity.y);
-                ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(-GetComponent<Rigidbody2D>().velocity.x, ghostPlayer.GetComponent<Rigidbody2D>().velocity.y);
+                if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(-GetComponent<Rigidbody2D>().velocity.x, ghostPlayer.GetComponent<Rigidbody2D>().velocity.y);
             } else if (rotatorSystem.orientation == 1 || rotatorSystem.orientation == 3) {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
                     GetComponent<Rigidbody2D>().velocity.x,
                     Mathf.SmoothStep(playerSpeed * prevDirection.y, playerSpeed * direction.y, movementLerpStep));
-                ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(ghostPlayer.GetComponent<Rigidbody2D>().velocity.x, -GetComponent<Rigidbody2D>().velocity.y);
+                if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(ghostPlayer.GetComponent<Rigidbody2D>().velocity.x, -GetComponent<Rigidbody2D>().velocity.y);
             }
             
 

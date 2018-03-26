@@ -634,7 +634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: -90
-  test: 0
+  canBeInterrupted: 0
 --- !u!114 &851411538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1114,7 +1114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 90
-  test: 0
+  canBeInterrupted: 0
 --- !u!1001 &1513405155
 Prefab:
   m_ObjectHideFlags: 0
@@ -1465,7 +1465,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1043017651259422, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
       propertyPath: m_Name
-      value: Player (1)
+      value: Ghost
       objectReference: {fileID: 0}
     - target: {fileID: 4632194953189098, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1486,6 +1486,31 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: isGhost
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212178322620185496, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212178322620185496, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212178322620185496, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212178322620185496, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dce657c35db744e449a1c84f20240db8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
   m_IsPrefabParent: 0
@@ -1692,7 +1717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationAmountPerGravChange: 90
-  test: 0
+  canBeInterrupted: 0
 --- !u!1001 &2118179864
 Prefab:
   m_ObjectHideFlags: 0

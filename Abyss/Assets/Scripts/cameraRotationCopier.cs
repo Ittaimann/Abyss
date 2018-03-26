@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class cameraRotationCopier : MonoBehaviour {
     public float rotationAmountPerGravChange = 45;
-    public bool test = false;
+    public bool canBeInterrupted = true;
     private List <string> blockLayers;
     private Vector2 current;
     private bool clockwise = true;
@@ -42,6 +42,12 @@ public class cameraRotationCopier : MonoBehaviour {
             //determine change, use cross product to determine direction the gravity rotated, then apply the rotationAmount change in that direction
             targetRotation *=  clockwise ? rotationAmount : Quaternion.Inverse(rotationAmount);
             current = Physics2D.gravity;
+        }
+        if (!canBeInterrupted)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.1f);
+            return;//literally everything else in this script is for the function of not executing invalid rotations. In the off chance this
+                    //script is used for non outline objects, set the bool to true
         }
         float rotationDifference;
         if (!blocked)
