@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent, circleParent, circleOutlineParent;
     private List<Transform> squares, squareOutlines, triangles, triangleOutlines, circles, circleOutlines;
 
+    public Color frozenColor;
     public string next, restart;//scenes paths to preload
     
 	// Use this for initialization
@@ -231,6 +232,45 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    public void freezeOutline(Transform outline)
+    {
+        //first unfreeze all, then freeze this one. Only one frozen at a time.
+        unfreezeAllPossibleOutlines();
+
+        if (squareOutlines.Contains(outline) || triangleOutlines.Contains(outline))
+        {
+            outline.GetComponent<cameraRotationCopier>().enabled = false;
+            outline.GetComponent<SpriteRenderer>().color = frozenColor;
+        }
+        else if (circleOutlines.Contains(outline))
+        {
+            outline.GetComponent<SpriteRenderer>().color = frozenColor;
+        }
+        else
+        {
+            Debug.LogError("Player tried to freeze something other than an outline.\nIt appears to be a \"" + outline.tag + "\".");
+        }
+    }
+
+    public void unfreezeAllPossibleOutlines()
+    {
+        foreach(Transform squareOutline in squareOutlines)
+        {
+            squareOutline.GetComponent<cameraRotationCopier>().enabled = true;
+            squareOutline.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        foreach(Transform triangleOutline in triangleOutlines)
+        {
+            triangleOutline.GetComponent<cameraRotationCopier>().enabled = true;
+            triangleOutline.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        foreach(Transform circleOutline in circleOutlines)
+        {
+            circleOutline.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+    }
+
     public bool isLevelClear()
     {
         return (circleOutlines.Count == 0 && squareOutlines.Count == 0 && triangleOutlines.Count == 0);

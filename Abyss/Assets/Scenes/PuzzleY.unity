@@ -406,6 +406,16 @@ Prefab:
       propertyPath: exitParent
       value: 
       objectReference: {fileID: 920728930}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: frozenColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114747025463471824, guid: 5bddaa7f487751440b247a0b2e9f84ec,
+        type: 2}
+      propertyPath: frozenColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bddaa7f487751440b247a0b2e9f84ec, type: 2}
   m_IsPrefabParent: 0
@@ -637,6 +647,7 @@ MonoBehaviour:
   playerRoom: {fileID: 1295935898}
   ghostRoom: {fileID: 1295935898}
   playerAnimator: {fileID: 1385210032}
+  gm: {fileID: 683252035}
 --- !u!114 &851411538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,6 +665,51 @@ MonoBehaviour:
   currentFrame: 0
   state: 0
   facingRight: 1
+--- !u!61 &851411539
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851411536}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.41, y: 2.69}
+    newSize: {x: 10.24, y: 10.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.41, y: 2.6899998}
+  m_EdgeRadius: 0
+--- !u!50 &851411540
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 851411536}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!4 &877947018 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4266472001946838, guid: d4c1775aea3d1a64985167432b6fd0a6,
@@ -1520,6 +1576,14 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: dce657c35db744e449a1c84f20240db8, type: 2}
+    - target: {fileID: 1043017651259422, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1043017651259422, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
+      propertyPath: m_Layer
+      value: 23
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 61005788087480996, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
     - {fileID: 50838226918196002, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}

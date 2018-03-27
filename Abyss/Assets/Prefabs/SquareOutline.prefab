@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 61989027421045552}
   m_Layer: 15
   m_Name: OuterCollider
-  m_TagString: Untagged
+  m_TagString: Outline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
