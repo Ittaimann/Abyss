@@ -10,6 +10,7 @@ public class ghostController : MonoBehaviour {
     private Vector3 offset;//difference between positions in playerRoom and ghostRoom
     public TestPlayerAnimator playerAnimator;
     private TestPlayerAnimator animator;// copies the state of the player Animator
+    public float maxPlayerCancelCollsionDistance;// a collision between player and ghost that cancels the two are at most this far apart
     public GameManager gm;//for freezing and unfreezing outlines, also loading next level
 
     void Start () {
@@ -26,6 +27,13 @@ public class ghostController : MonoBehaviour {
         //copy animations
         animator.SetState(playerAnimator.state, playerAnimator.currentFrame);
         animator.facingRight = playerAnimator.facingRight;
+
+        //if close enough to player, "cancel" and load next level
+        Debug.Log(Vector3.Distance(transform.position, player.transform.position));
+        if(Vector3.Distance(transform.position, player.transform.position) <= maxPlayerCancelCollsionDistance)
+        {
+            gm.loadNextLevel();
+        }
 	}
 
     public void OnTriggerEnter2D(Collider2D other)
