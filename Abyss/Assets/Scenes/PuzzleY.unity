@@ -630,11 +630,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 851411536}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85805ad65df920440b28161ca2278dec, type: 3}
+  m_Script: {fileID: 11500000, guid: 28cf247a5febab74084dc30b89a3a218, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAmountPerGravChange: -90
-  canBeInterrupted: 0
+  player: {fileID: 1385210037}
+  playerRoom: {fileID: 1295935898}
+  ghostRoom: {fileID: 1295935898}
+  playerAnimator: {fileID: 1385210032}
 --- !u!114 &851411538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,6 +651,7 @@ MonoBehaviour:
   walkFolder: Player/Walk
   jumpFolder: Player/Jump
   fps: 60
+  currentFrame: 0
   state: 0
   facingRight: 1
 --- !u!4 &877947018 stripped
@@ -1095,11 +1098,17 @@ MonoBehaviour:
   walkFolder: Player/Walk
   jumpFolder: Player/Jump
   fps: 60
+  currentFrame: 0
   state: 0
   facingRight: 1
 --- !u!50 &1385210034 stripped
 Rigidbody2D:
   m_PrefabParentObject: {fileID: 50838226918196002, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1513405155}
+--- !u!4 &1385210037 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4632194953189098, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e,
     type: 2}
   m_PrefabInternal: {fileID: 1513405155}
 --- !u!114 &1385210038
@@ -1511,7 +1520,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: dce657c35db744e449a1c84f20240db8, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 61005788087480996, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
+    - {fileID: 50838226918196002, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
+    - {fileID: 114360360247130128, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c96bc763c7d13ec4d9ae1ebd4a75c42e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2035281004

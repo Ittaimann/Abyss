@@ -12,8 +12,6 @@ public class MouseInputTesting : MonoBehaviour {
     public float grabRange;
     public Camera cam;
     public GameManager gm;
-    public bool isGhost = false;
-    public GameObject ghostPlayer;
 
     private Quaternion offset;
 
@@ -61,7 +59,7 @@ public class MouseInputTesting : MonoBehaviour {
 
     void Update () {
         //this block finds and interprets mouse click events in the scene
-        if (!isGhost && Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0)) {
             if (isDoubleTap)
             {
                 // If the double-tap coroutine is still running, stop it -- it can cause an issue at a specific edge case
@@ -80,7 +78,6 @@ public class MouseInputTesting : MonoBehaviour {
                     if(hit.collider.gameObject.tag == "Player")
                     {
                         this.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
-                        if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * bounceForce * Physics2D.gravity.normalized, ForceMode2D.Impulse);
                         gm.bounceAllGroundedShapes(bounceForce);
 
                     //GRAB
@@ -115,7 +112,6 @@ public class MouseInputTesting : MonoBehaviour {
                         //drop any objects grabbed then execute jump
                         gm.unbindAllPossibleObjects();
                         GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * -Physics2D.gravity.normalized, ForceMode2D.Impulse);
-                        if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().AddForce(1.0f / 10 * 150 * Physics2D.gravity.normalized, ForceMode2D.Impulse);
                         if (animator != null)
                             animator.SetState(PlayerState.JUMP, 16);
                     }
@@ -138,12 +134,10 @@ public class MouseInputTesting : MonoBehaviour {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
                     Mathf.SmoothStep(playerSpeed * prevDirection.x, playerSpeed * direction.x, movementLerpStep),
                     GetComponent<Rigidbody2D>().velocity.y);
-                if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(-GetComponent<Rigidbody2D>().velocity.x, ghostPlayer.GetComponent<Rigidbody2D>().velocity.y);
             } else if (rotatorSystem.orientation == 1 || rotatorSystem.orientation == 3) {
                 GetComponent<Rigidbody2D>().velocity = new Vector2(
                     GetComponent<Rigidbody2D>().velocity.x,
                     Mathf.SmoothStep(playerSpeed * prevDirection.y, playerSpeed * direction.y, movementLerpStep));
-                if(ghostPlayer)ghostPlayer.GetComponent<Rigidbody2D>().velocity = new Vector2(ghostPlayer.GetComponent<Rigidbody2D>().velocity.x, -GetComponent<Rigidbody2D>().velocity.y);
             }
             
 

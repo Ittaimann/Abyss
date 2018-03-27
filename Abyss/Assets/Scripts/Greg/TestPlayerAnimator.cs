@@ -16,7 +16,7 @@ public class TestPlayerAnimator : MonoBehaviour {
     SpriteRenderer sprRender;
     Rigidbody2D rb2D;
 
-    int currentFrame;
+    public int currentFrame;
     public PlayerState state;
 
 
