@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212168334907210638}
   - component: {fileID: 58243986022862314}
   - component: {fileID: 114861312499503248}
+  - component: {fileID: 114547585696324646}
   m_Layer: 22
   m_Name: CircleOutline
   m_TagString: Untagged
@@ -102,6 +103,21 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.28
+--- !u!114 &114547585696324646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1181645015430018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5439208ad705e7a4e914c10628dc850e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInitiallyFrozen: 0
+  outlineToCopy: {fileID: 0}
+  copyFreezeState: 0
+  copyRotation: 0
 --- !u!114 &114861312499503248
 MonoBehaviour:
   m_ObjectHideFlags: 1

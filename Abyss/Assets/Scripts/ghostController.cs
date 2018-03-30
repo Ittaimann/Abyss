@@ -29,7 +29,6 @@ public class ghostController : MonoBehaviour {
         animator.facingRight = playerAnimator.facingRight;
 
         //if close enough to player, "cancel" and load next level
-        Debug.Log(Vector3.Distance(transform.position, player.transform.position));
         if(Vector3.Distance(transform.position, player.transform.position) <= maxPlayerCancelCollsionDistance)
         {
             gm.loadNextLevel();
@@ -40,6 +39,7 @@ public class ghostController : MonoBehaviour {
     {
         if(other.tag == "Outline")
         {
+            gm.unfreezeAllPossibleOutlines();//this call here because only one frozen thing at a time is allowed.
             gm.freezeOutline(other.transform.parent);//parent because the outer collider is what this will hit, but is not what is stored in gm
         }
     }

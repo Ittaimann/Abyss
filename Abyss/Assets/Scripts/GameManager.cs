@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour {
     //these are temp and used to have a full local list of objects in the scene
     public GameObject squareParent, squareOutlineParent, triangleParent, triangleOutlineParent, circleParent, circleOutlineParent;
     private List<Transform> squares, squareOutlines, triangles, triangleOutlines, circles, circleOutlines;
+    private HashSet<Transform> frozenSet;//frozenSet holds all frozen transforms
+    private Dictionary<Transform, Transform> frozenDict;// frozenDict manages all freezing dependencies, key is master, value is slave
 
     public Color frozenColor;
     public string next, restart;//scenes paths to preload
@@ -42,7 +44,44 @@ public class GameManager : MonoBehaviour {
 
         if (this.gameObject.scene == SceneManager.GetActiveScene())
             preloadSceneReferences();
-        
+
+        //filling set with all initially frozen outlines
+        //filling dictionary with all freeze state slave/master dependancies
+        frozenSet = new HashSet<Transform>();
+        frozenDict = new Dictionary<Transform, Transform>();
+        //temp variable to not redeclare constantly
+        outlineCopier oc;
+
+        foreach (Transform t in squareOutlines)
+        {
+            if (oc = t.GetComponent<outlineCopier>())
+            {
+                if (oc.isInitiallyFrozen)
+                    frozenSet.Add(t);
+                if (oc.copyFreezeState)
+                    frozenDict.Add(oc.outlineToCopy, t);
+            }
+        }
+        foreach (Transform t in triangleOutlines)
+        {
+            if (oc = t.GetComponent<outlineCopier>())
+            {
+                if (oc.isInitiallyFrozen)
+                    frozenSet.Add(t);
+                if (oc.copyFreezeState)
+                    frozenDict.Add(oc.outlineToCopy, t);
+            }
+        }
+        foreach (Transform t in circleOutlines)
+        {
+            if (oc = t.GetComponent<outlineCopier>())
+            {
+                if (oc.isInitiallyFrozen)
+                    frozenSet.Add(t);
+                if (oc.copyFreezeState)
+                    frozenDict.Add(oc.outlineToCopy, t);
+            }
+        }
     }
 	
     public void preloadSceneReferences()// needs to be public in order for destroyed scene's gameManager to trigger the next gameManager to load their references
@@ -235,40 +274,73 @@ public class GameManager : MonoBehaviour {
 
     public void freezeOutline(Transform outline)
     {
-        //first unfreeze all, then freeze this one. Only one frozen at a time.
-        unfreezeAllPossibleOutlines();
 
-        if (squareOutlines.Contains(outline) || triangleOutlines.Contains(outline))
+        //given an outline, if it is not frozen and it is not dependant on another for freeze state, it will freeze
+        if (!frozenSet.Contains(outline) && !frozenDict.ContainsValue(outline))
         {
-            outline.GetComponent<cameraRotationCopier>().enabled = false;
-            outline.GetComponent<SpriteRenderer>().color = frozenColor;
-        }
-        else if (circleOutlines.Contains(outline))
-        {
-            outline.GetComponent<SpriteRenderer>().color = frozenColor;
-        }
-        else
-        {
-            Debug.LogError("Player tried to freeze something other than an outline.\nIt appears to be a \"" + outline.tag + "\".");
+            //add this outline to the frozenSet
+            frozenSet.Add(outline);
+
+            //check if need to update the state of a dependant outline, and recursive call if needed
+            if (frozenDict.ContainsKey(outline))
+            {
+                freezeOutline(frozenDict[outline]);
+            }
+
+            //freeze outline
+            if (squareOutlines.Contains(outline) || triangleOutlines.Contains(outline))
+            {
+                outline.GetComponent<cameraRotationCopier>().enabled = false;
+                outline.GetComponent<SpriteRenderer>().color = frozenColor;
+            }
+            else if (circleOutlines.Contains(outline))
+            {
+                outline.GetComponent<SpriteRenderer>().color = frozenColor;
+            }
+            else
+            {
+                Debug.LogError("Player tried to freeze something other than an outline.\nIt appears to be a \"" + outline.tag + "\".");
+            }
         }
     }
 
     public void unfreezeAllPossibleOutlines()
     {
         foreach(Transform squareOutline in squareOutlines)
+            unfreezeOutline(squareOutline);
+
+        foreach (Transform triangleOutline in triangleOutlines)
+            unfreezeOutline(triangleOutline);
+
+        foreach (Transform circleOutline in circleOutlines)
+            unfreezeOutline(circleOutline);
+    }
+
+    public void unfreezeOutline(Transform outline)
+    {
+        //given an outline, if it is frozen and it is not dependant on another for freeze state, it will unfreeze
+        if (frozenSet.Contains(outline) && !frozenDict.ContainsValue(outline))
         {
-            squareOutline.GetComponent<cameraRotationCopier>().enabled = true;
-            squareOutline.GetComponent<SpriteRenderer>().color = Color.white;
+            //remove this outline from the frozenSet
+            frozenSet.Remove(outline);
+
+            //check if need to update the state of a dependant outline, and recursive call if needed
+            if (frozenDict.ContainsKey(outline))
+            {
+                unfreezeOutline(frozenDict[outline]);
+            }
+            //unfreeze the outline
+            if(outline.GetComponent<cameraRotationCopier>())//circles dont have this because they dont rotate
+                outline.GetComponent<cameraRotationCopier>().enabled = true;
+            outline.GetComponent<SpriteRenderer>().color = Color.white;
+            frozenSet.Remove(outline);
         }
-        foreach(Transform triangleOutline in triangleOutlines)
-        {
-            triangleOutline.GetComponent<cameraRotationCopier>().enabled = true;
-            triangleOutline.GetComponent<SpriteRenderer>().color = Color.white;
-        }
-        foreach(Transform circleOutline in circleOutlines)
-        {
-            circleOutline.GetComponent<SpriteRenderer>().color = Color.white;
-        }
+
+    }
+
+    public bool isFrozen(Transform outline)
+    {
+        return frozenSet.Contains(outline);
     }
 
     public bool isLevelClear()

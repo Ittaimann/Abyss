@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114127039898690424}
   - component: {fileID: 114918844569240190}
   - component: {fileID: 60744604132533256}
+  - component: {fileID: 114400248757445674}
   m_Layer: 19
   m_Name: TriangleOutline
   m_TagString: Untagged
@@ -166,6 +167,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
   RotationalLeniency: 10
+--- !u!114 &114400248757445674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961470971007486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5439208ad705e7a4e914c10628dc850e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInitiallyFrozen: 0
+  outlineToCopy: {fileID: 0}
+  copyFreezeState: 0
+  copyRotation: 0
 --- !u!114 &114918844569240190
 MonoBehaviour:
   m_ObjectHideFlags: 1
