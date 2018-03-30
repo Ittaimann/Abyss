@@ -53,35 +53,30 @@ public class GameManager : MonoBehaviour {
         outlineCopier oc;
 
         foreach (Transform t in squareOutlines)
-        {
             if (oc = t.GetComponent<outlineCopier>())
-            {
-                if (oc.isInitiallyFrozen)
-                    frozenSet.Add(t);
                 if (oc.copyFreezeState)
                     frozenDict.Add(oc.outlineToCopy, t);
-            }
-        }
         foreach (Transform t in triangleOutlines)
-        {
             if (oc = t.GetComponent<outlineCopier>())
-            {
-                if (oc.isInitiallyFrozen)
-                    frozenSet.Add(t);
                 if (oc.copyFreezeState)
                     frozenDict.Add(oc.outlineToCopy, t);
-            }
-        }
         foreach (Transform t in circleOutlines)
-        {
             if (oc = t.GetComponent<outlineCopier>())
-            {
-                if (oc.isInitiallyFrozen)
-                    frozenSet.Add(t);
                 if (oc.copyFreezeState)
                     frozenDict.Add(oc.outlineToCopy, t);
-            }
-        }
+
+        foreach (Transform t in squareOutlines)
+            if (oc = t.GetComponent<outlineCopier>())
+                if (oc.isInitiallyFrozen)
+                    freezeOutline(t);
+        foreach (Transform t in triangleOutlines)
+            if (oc = t.GetComponent<outlineCopier>())
+                if (oc.isInitiallyFrozen)
+                    freezeOutline(t);
+        foreach (Transform t in circleOutlines)
+            if (oc = t.GetComponent<outlineCopier>())
+                if (oc.isInitiallyFrozen)
+                    freezeOutline(t);
     }
 	
     public void preloadSceneReferences()// needs to be public in order for destroyed scene's gameManager to trigger the next gameManager to load their references
@@ -272,11 +267,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void freezeOutline(Transform outline)
+    public void freezeOutline(Transform outline, Transform master = null)
     {
 
-        //given an outline, if it is not frozen and it is not dependant on another for freeze state, it will freeze
-        if (!frozenSet.Contains(outline) && !frozenDict.ContainsValue(outline))
+        //given an outline, if it is not frozen and it is not dependant on another for freeze state (or it is dep. but granted authorization), it will freeze
+        if (!frozenSet.Contains(outline) && (!frozenDict.ContainsValue(outline) || (master && frozenDict[master] == outline)))
         {
             //add this outline to the frozenSet
             frozenSet.Add(outline);
@@ -284,7 +279,7 @@ public class GameManager : MonoBehaviour {
             //check if need to update the state of a dependant outline, and recursive call if needed
             if (frozenDict.ContainsKey(outline))
             {
-                freezeOutline(frozenDict[outline]);
+                freezeOutline(frozenDict[outline], outline);
             }
 
             //freeze outline
@@ -316,10 +311,10 @@ public class GameManager : MonoBehaviour {
             unfreezeOutline(circleOutline);
     }
 
-    public void unfreezeOutline(Transform outline)
+    public void unfreezeOutline(Transform outline, Transform master = null)
     {
         //given an outline, if it is frozen and it is not dependant on another for freeze state, it will unfreeze
-        if (frozenSet.Contains(outline) && !frozenDict.ContainsValue(outline))
+        if (frozenSet.Contains(outline) && (!frozenDict.ContainsValue(outline) || (master && frozenDict[master] == outline)))
         {
             //remove this outline from the frozenSet
             frozenSet.Remove(outline);
@@ -327,7 +322,7 @@ public class GameManager : MonoBehaviour {
             //check if need to update the state of a dependant outline, and recursive call if needed
             if (frozenDict.ContainsKey(outline))
             {
-                unfreezeOutline(frozenDict[outline]);
+                unfreezeOutline(frozenDict[outline], outline);
             }
             //unfreeze the outline
             if(outline.GetComponent<cameraRotationCopier>())//circles dont have this because they dont rotate
